@@ -229,6 +229,18 @@
       background: #1a6b3a; border-radius: 50%;
       flex-shrink: 0;
     }
+
+    .tool-status-wip {
+      font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+      color: #aaaaaa; text-transform: uppercase;
+      display: flex; align-items: center; gap: 5px;
+      flex-shrink: 0;
+    }
+    .tool-status-wip::before {
+      content: ''; width: 5px; height: 5px;
+      background: #cccccc; border-radius: 50%;
+      flex-shrink: 0;
+    }
     .tool-status-soon {
       font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
       color: #cccccc; text-transform: uppercase; flex-shrink: 0;
@@ -243,6 +255,14 @@
     .tool-item:not(.disabled):hover .tool-arrow {
       opacity: 1;
       transform: translateX(0);
+    }
+
+    .tool-tag {
+      font-size: 10px; font-weight: 400; letter-spacing: 0.1em;
+      color: #bbbbbb; text-transform: uppercase;
+      border: 0.5px solid #E8E5DE;
+      padding: 3px 8px;
+      flex-shrink: 0;
     }
 
     /* CONTACT */
@@ -307,7 +327,7 @@
       Investment analyst · Geneva
     </div>
     <h1>Investment tools.<br>Built from the<br>inside out.</h1>
-    <p class="hero-sub">Deal analysis. Fund operations. AI-powered.</p>
+    <p class="hero-sub">Deal analysis. Fund operations. Market research. AI-powered.</p>
     <div class="hero-actions">
       <a href="#tools" class="btn-primary">See the tools → </a>
       <a href="#contact" class="btn-ghost">Get in touch</a>
@@ -327,10 +347,11 @@
           <div class="tool-name-wrap">
             <span class="tool-num">01</span>
             <span class="tool-name">IC Lens</span>
+            <span class="tool-tag">Deal Analysis</span>
           </div>
           <div class="tool-right">
             <span class="tool-status-live">Live</span>
-            <span class="tool-arrow">→ </span>
+            <span class="tool-arrow">→</span>
           </div>
         </div>
         <div class="tool-desc-wrap">
@@ -343,10 +364,11 @@
           <div class="tool-name-wrap">
             <span class="tool-num">02</span>
             <span class="tool-name">LP Report Generator</span>
+            <span class="tool-tag">Fund Operations</span>
           </div>
           <div class="tool-right">
             <span class="tool-status-live">Live</span>
-            <span class="tool-arrow">→ </span>
+            <span class="tool-arrow">→</span>
           </div>
         </div>
         <div class="tool-desc-wrap">
@@ -354,15 +376,33 @@
         </div>
       </a>
 
-      <a href="https://signal-ruddy-beta.vercel.app/" target="_blank" rel="noopener" class="tool-item">
+      <a href="https://radar-dun-phi.vercel.app/" target="_blank" rel="noopener" class="tool-item">
         <div class="tool-item-inner">
           <div class="tool-name-wrap">
             <span class="tool-num">03</span>
-            <span class="tool-name">Signal</span>
+            <span class="tool-name">Radar</span>
+            <span class="tool-tag">Market Research</span>
           </div>
           <div class="tool-right">
             <span class="tool-status-live">Live</span>
-            <span class="tool-arrow">→ </span>
+            <span class="tool-arrow">→</span>
+          </div>
+        </div>
+        <div class="tool-desc-wrap">
+          <div class="tool-desc">Logistics real estate intelligence map — interactive research tool for market analysis across key Dutch distribution corridors.</div>
+        </div>
+      </a>
+
+      <a href="https://signal-ruddy-beta.vercel.app/" target="_blank" rel="noopener" class="tool-item">
+        <div class="tool-item-inner">
+          <div class="tool-name-wrap">
+            <span class="tool-num">04</span>
+            <span class="tool-name">Signal</span>
+            <span class="tool-tag">Market Research</span>
+          </div>
+          <div class="tool-right">
+            <span class="tool-status-wip">Work in Progress</span>
+            <span class="tool-arrow">→</span>
           </div>
         </div>
         <div class="tool-desc-wrap">
@@ -370,16 +410,16 @@
         </div>
       </a>
 
-
       <a href="https://atlas-map-woad.vercel.app/" target="_blank" rel="noopener" class="tool-item">
         <div class="tool-item-inner">
           <div class="tool-name-wrap">
-            <span class="tool-num">04</span>
+            <span class="tool-num">05</span>
             <span class="tool-name">Atlas</span>
+            <span class="tool-tag">Market Research</span>
           </div>
           <div class="tool-right">
-            <span class="tool-status-live">Live</span>
-            <span class="tool-arrow">→ </span>
+            <span class="tool-status-wip">Work in Progress</span>
+            <span class="tool-arrow">→</span>
           </div>
         </div>
         <div class="tool-desc-wrap">
