@@ -231,7 +231,6 @@
       <li><span class="toc-num">04</span><a href="#ic-lens">IC Lens</a></li>
       <li><span class="toc-num">05</span><a href="#radar">Radar</a></li>
       <li><span class="toc-num">06</span><a href="#atlas">Atlas</a></li>
-      <li><span class="toc-num">07</span><a href="#signal">Signal</a></li>
     </ul>
   </div>
 
@@ -341,22 +340,6 @@
       <p>Atlas addresses the synthesis step specifically. The tool aggregates six macro signals across 29 European countries into a composite health score, with user-adjustable weighting sliders that allow the analyst to reflect their fund's specific investment thesis. A fund with a shorter hold period weights political stability differently from one underwriting a ten-year logistics asset. Atlas makes that weighting explicit and adjustable rather than leaving it implicit in the analyst's head.</p>
 
       <p>The AI layer generates country-level investment verdicts from the composite scores and signal mix. These are structured first-pass assessments, useful for scanning across markets before an allocation committee or for identifying countries worth deeper research. The current data is partially static and partially forecast-based, which is a real limitation for time-sensitive decisions. The appropriate use is strategic orientation. Connecting Atlas to ECB and Eurostat APIs directly is the natural next step, and the architecture supports it.</p>
-    </div>
-  </div>
-
-  <!-- 07: SIGNAL -->
-  <div class="doc-section">
-    <span class="section-anchor" id="signal"></span>
-    <div class="section-num">07</div>
-    <h2 class="section-title">Signal</h2>
-    <div class="tool-block-body">
-      <p>Signal is a deliberate departure from the logistics real estate focus of the other tools. It applies the same AI-augmented workflow architecture to energy market analysis, specifically the detection and interpretation of price anomalies across energy commodities.</p>
-
-      <p>The motivation was methodological rather than asset-class specific. Energy markets are among the most signal-dense environments in finance. Spread relationships, cross-commodity correlations, and macro linkages that are well-understood in normal conditions regularly break down during periods of stress or structural change. Detecting those breakdowns early, and understanding what they imply, is analytically demanding and time-sensitive work.</p>
-
-      <p>Signal monitors four anomaly types — spread extremes, correlation breakdowns, macro decouplings, and volatility spikes — and generates structured investment theses when anomalies are detected. Live oil price data feeds the detection layer; the AI generates the interpretation. As with every tool in this portfolio, the output is a starting point for analysis, not a conclusion. The value is in directing the analyst's attention toward where something interesting may be happening and providing a structured framework for thinking about why.</p>
-
-      <p>The broader point Signal illustrates is that the design principles underlying these tools are not specific to real estate. Identify a real pain point, apply AI to the friction rather than the judgement, and preserve the professional's responsibility for the output. That logic holds wherever skilled analysts are working with large amounts of data and limited time.</p>
     </div>
   </div>
 
