@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Design Note — Tomaso Portunato</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #ffffff;
+      color: #555555;
+      font-size: 14px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      height: 64px; padding: 0 52px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 0.5px solid #E8E5DE;
+    }
+    .nav-left { display: flex; align-items: center; gap: 20px; }
+    .nav-back {
+      font-size: 13px; font-weight: 400; color: #888888;
+      text-decoration: none;
+      display: flex; align-items: center; gap: 6px;
+      transition: color 0.15s;
+    }
+    .nav-back:hover { color: #0F2744; }
+    .nav-back::before { content: '←'; font-size: 14px; }
+    .nav-divider { width: 1px; height: 16px; background: #E8E5DE; }
+    .nav-title { font-size: 13px; font-weight: 500; color: #0F2744; }
+    .nav-label {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.09em;
+      color: rgba(15,39,68,0.4); text-transform: uppercase;
+    }
+
+    /* ── LAYOUT ── */
+    .page-wrap {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 128px 40px 96px;
+    }
+
+    /* ── HEADER ── */
+    .doc-eyebrow {
+      font-size: 11px; font-weight: 500; letter-spacing: 0.14em;
+      color: #C8692A; text-transform: uppercase;
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 28px;
+    }
+    .doc-eyebrow::before {
+      content: ''; display: block;
+      width: 24px; height: 1px; background: #C8692A;
+    }
+    .doc-title {
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 600; color: #0F2744;
+      letter-spacing: -0.025em; line-height: 1.1;
+      margin-bottom: 20px;
+    }
+    .doc-subtitle {
+      font-size: 15px; font-weight: 300; font-style: italic;
+      color: #888888; line-height: 1.5;
+      margin-bottom: 40px;
+    }
+    .doc-meta {
+      display: flex; align-items: center; gap: 24px;
+      padding-bottom: 32px;
+      border-bottom: 0.5px solid #E8E5DE;
+      margin-bottom: 56px;
+    }
+    .doc-meta-item { display: flex; flex-direction: column; gap: 2px; }
+    .doc-meta-label {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.1em;
+      color: #aaaaaa; text-transform: uppercase;
+    }
+    .doc-meta-value { font-size: 13px; font-weight: 400; color: #0F2744; }
+    .doc-meta-sep { width: 1px; height: 28px; background: #E8E5DE; }
+
+    /* ── TOC ── */
+    .toc {
+      background: #F7F5F1;
+      border-radius: 12px;
+      padding: 24px 28px;
+      margin-bottom: 56px;
+    }
+    .toc-label {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.1em;
+      color: #aaaaaa; text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .toc-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .toc-list li { display: flex; align-items: baseline; gap: 10px; }
+    .toc-num { font-size: 10px; font-weight: 500; color: #aaaaaa; min-width: 20px; }
+    .toc-list a {
+      font-size: 13px; font-weight: 400; color: #0F2744;
+      text-decoration: none; transition: color 0.15s;
+    }
+    .toc-list a:hover { color: #C8692A; }
+
+    /* ── SECTIONS ── */
+    .doc-section { margin-bottom: 72px; }
+    .section-anchor { display: block; position: relative; top: -80px; visibility: hidden; }
+    .section-num {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.12em;
+      color: #aaaaaa; text-transform: uppercase;
+      margin-bottom: 10px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .section-num::after { content: ''; flex: 1; height: 1px; background: #E8E5DE; }
+    .section-title {
+      font-size: 22px; font-weight: 600; color: #0F2744;
+      letter-spacing: -0.015em; line-height: 1.2;
+      margin-bottom: 20px;
+    }
+    .section-body p, .tool-block-body p {
+      font-size: 14px; line-height: 1.75; color: #555555;
+      margin-bottom: 16px;
+    }
+    .section-body p:last-child, .tool-block-body p:last-child { margin-bottom: 0; }
+
+    /* ── CALLOUT ── */
+    .callout {
+      border-left: 2px solid #C8692A;
+      padding: 14px 20px;
+      background: #FBF0E9;
+      border-radius: 0 8px 8px 0;
+      margin: 24px 0;
+    }
+    .callout p {
+      font-size: 13px; font-style: italic;
+      color: #7A3A12; line-height: 1.6; margin: 0;
+    }
+
+    /* ── DEMO NOTE ── */
+    .demo-note {
+      border: 0.5px solid #E8E5DE;
+      border-radius: 8px;
+      padding: 16px 20px;
+      background: #F7F5F1;
+      margin-top: 20px;
+    }
+    .demo-note-label {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.1em;
+      color: #aaaaaa; text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .demo-note p {
+      font-size: 12px; color: #888888; line-height: 1.65; margin: 0;
+    }
+
+    /* ── CLOSING ── */
+    .closing-rule {
+      border-top: 0.5px solid #E8E5DE;
+      padding-top: 40px; margin-top: 64px;
+    }
+    .closing-text { font-size: 13px; color: #888888; line-height: 1.6; }
+    .closing-text a { color: #C8692A; text-decoration: none; }
+    .closing-text a:hover { text-decoration: underline; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 0.5px solid #E8E5DE;
+      padding: 24px 52px;
+      font-size: 12px; color: #aaaaaa;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    footer a { color: #aaaaaa; text-decoration: none; }
+    footer a:hover { color: #0F2744; }
+
+    @media (max-width: 640px) {
+      nav { padding: 0 20px; }
+      .page-wrap { padding: 108px 20px 72px; }
+      footer { padding: 20px; flex-direction: column; gap: 8px; }
+      .doc-meta { flex-wrap: wrap; gap: 16px; }
+      .doc-meta-sep { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-left">
+    <a href="https://portfolio-dusky-sigma-99.vercel.app/" class="nav-back">Portfolio</a>
+    <div class="nav-divider"></div>
+    <span class="nav-title">AI Design Note</span>
+  </div>
+  <span class="nav-label">Technical Note · 2026</span>
+</nav>
+
+<div class="page-wrap">
+
+  <!-- HEADER -->
+  <div class="doc-eyebrow">Technical Note</div>
+  <h1 class="doc-title">AI in Finance — Applied Carefully</h1>
+  <p class="doc-subtitle">On building tools that augment skilled professionals, not replace their judgement.</p>
+
+  <div class="doc-meta">
+    <div class="doc-meta-item">
+      <span class="doc-meta-label">Author</span>
+      <span class="doc-meta-value">Tomaso Portunato</span>
+    </div>
+    <div class="doc-meta-sep"></div>
+    <div class="doc-meta-item">
+      <span class="doc-meta-label">Context</span>
+      <span class="doc-meta-value">Investment Analyst, DAA Capital Partners</span>
+    </div>
+    <div class="doc-meta-sep"></div>
+    <div class="doc-meta-item">
+      <span class="doc-meta-label">Date</span>
+      <span class="doc-meta-value">2026</span>
+    </div>
+  </div>
+
+  <!-- TOC -->
+  <div class="toc">
+    <div class="toc-label">Contents</div>
+    <ul class="toc-list">
+      <li><span class="toc-num">01</span><a href="#philosophy">The Right Starting Point</a></li>
+      <li><span class="toc-num">02</span><a href="#asset-manager">Asset Manager</a></li>
+      <li><span class="toc-num">03</span><a href="#lp-report">LP Report Generator</a></li>
+      <li><span class="toc-num">04</span><a href="#ic-lens">IC Lens</a></li>
+      <li><span class="toc-num">05</span><a href="#radar">Radar</a></li>
+      <li><span class="toc-num">06</span><a href="#atlas">Atlas</a></li>
+      <li><span class="toc-num">07</span><a href="#signal">Signal</a></li>
+    </ul>
+  </div>
+
+  <!-- 01: PHILOSOPHY -->
+  <div class="doc-section">
+    <span class="section-anchor" id="philosophy"></span>
+    <div class="section-num">01</div>
+    <h2 class="section-title">The Right Starting Point</h2>
+    <div class="section-body">
+
+      <div class="callout">
+        <p>The most dangerous use of AI in finance is by someone who doesn't know what good looks like.</p>
+      </div>
+
+      <p>AI tools in finance are proliferating faster than the understanding of how to use them. The result is a category of output that is technically impressive but analytically hollow: reports that read fluently, models that run quickly, and memos that sound authoritative, while missing the judgement that makes any of it useful.</p>
+
+      <p>The starting point for any worthwhile AI application is not the technology. It is a precise understanding of the pain point being addressed, built from real experience inside the workflow. Without that, AI does not augment a professional. It produces a convincing imitation of one.</p>
+
+      <p>There is a specific risk in finance. The craft of investment analysis — understanding a business, evaluating a management team, interpreting a set of accounts — is accumulated slowly, through exposure and repetition. AI can shortcut the surface presentation of that craft without building the underlying understanding. Used carelessly, it does not just produce low-quality output. It actively degrades the analytical capability of the people relying on it, because it removes the friction where learning happens.</p>
+
+      <p>There is a second risk that receives less attention. Finance operates on information that is frequently confidential: client data, proprietary deal flow, fund performance, internal valuations. AI systems that are poorly configured, over-used, or connected to third-party infrastructure without proper controls are a genuine data security threat. Inputs fed into AI tools can be stored, used for model training, or exposed in ways that are not always visible to the user. Every firm deploying AI in a professional context needs clear rules around what data can and cannot enter these systems, how outputs are stored and shared, and who has oversight of the process. The tools documented here operate on demo data precisely because the alternative — encouraging users to input real client or fund information into a client-side application without server-side security controls — would be irresponsible. That boundary is a design choice, not a limitation.</p>
+
+      <p>The tools documented here were built from the opposite direction. Each one starts with a specific, real friction point encountered in investment or fund management work. The AI layer is added only where it addresses that friction in a way that frees up the analyst's attention for the work requiring genuine expertise. Not as a substitute for it.</p>
+
+      <p>The benchmark for each design decision was straightforward: does this make a skilled professional faster and sharper, or does it make it easier to produce output without understanding it? Where the answer pointed toward the latter, the feature was redesigned or removed.</p>
+
+      <div class="demo-note">
+        <div class="demo-note-label">A note on the demos</div>
+        <p>The AI features in each tool were designed and tested using Claude (Anthropic). In the live demos, AI-generated responses are pre-loaded rather than generated in real time. This was a deliberate choice: exposing API keys in a client-side application is a security risk, and repeated live generation at scale carries a real cost. The pre-loaded responses were themselves generated by AI and are representative of what live generation produces. Connecting any of these tools to a live API requires only the addition of a server-side key handler — the architecture is built for it.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 02: ASSET MANAGER -->
+  <div class="doc-section">
+    <span class="section-anchor" id="asset-manager"></span>
+    <div class="section-num">02</div>
+    <h2 class="section-title">Asset Manager</h2>
+    <div class="tool-block-body">
+      <p>Managing a portfolio of real estate assets means operating across multiple data sources simultaneously. Valuation reports, rent schedules, loan statements, and tenant credit files each arrive in different formats, updated on different schedules, and owned by different counterparties. Reconciling these into a coherent portfolio view is one of the most time-consuming and error-prone parts of the job. It requires no real analytical skill, yet it consumes a disproportionate amount of an asset manager's attention.</p>
+
+      <p>Asset Manager was built around this pain point. The Command Centre provides a unified portfolio view with current GAV, gross rent, debt outstanding, and WALT, alongside entry-to-now delta tracking across every period. The Asset View drills into individual assets with quarterly performance charts, tenancy detail, and financing summary on a single screen. The quarterly update modal carries forward unchanged fields automatically, so data entry is limited to what has actually changed.</p>
+
+      <p>The AI layer operates in two places. The AI Upload feature accepts CSVs and PDFs and maps fields automatically, removing the manual transformation step that typically precedes any portfolio update. The AI Briefing generates a structured summary of portfolio or asset status on demand. It is not a replacement for the asset manager's knowledge of their assets. It is a preparation tool: a structured snapshot before a call, a board meeting, or a lender discussion. The Ask the Portfolio feature allows direct questions about specific assets or comparisons across the portfolio, with pre-loaded responses covering the most common analytical queries.</p>
+
+      <p>The alert system surfaces covenant breaches, credit score deterioration, and WALT compression automatically. For an asset manager running multiple assets simultaneously, this is the difference between catching a developing issue early and discovering it in a quarterly report.</p>
+    </div>
+  </div>
+
+  <!-- 03: LP REPORT GENERATOR -->
+  <div class="doc-section">
+    <span class="section-anchor" id="lp-report"></span>
+    <div class="section-num">03</div>
+    <h2 class="section-title">LP Report Generator</h2>
+    <div class="tool-block-body">
+      <p>LP reporting is one of the highest-stakes communication tasks a fund manager performs. Limited partners have committed capital in good faith; the quarterly report is often the primary channel through which they evaluate whether that trust is warranted. A careless, generic, or inaccurate LP report does lasting damage to the GP-LP relationship in ways that are difficult to repair.</p>
+
+      <p>The pain point this tool addresses is not the writing itself. It is the assembly and verification process that precedes it. Before a single sentence of a good LP report can be written, the portfolio data must be complete, consistent, and reviewed. Missing data produces hedged language. Unreviewed data produces errors. Both undermine the communication.</p>
+
+      <p>LP Report Generator is structured around this reality. The four-step workflow forces completeness before generation begins. The flagging system highlights missing or incomplete data points explicitly, making the gap between what is known and what is needed visible before work starts rather than after. This is a material improvement on the typical process, where missing information tends to surface mid-draft.</p>
+
+      <p>AI-generated content is colour-coded throughout, distinguishing human-authored text from generated narrative. This is a deliberate design choice: it preserves the professional's responsibility for the final output. The tool produces a content bank to work from, not a report to sign off on. Every generated paragraph is a starting point. The live audit log tracks every edit and generation event, which matters in a context where LP communications may be reviewed by legal or compliance.</p>
+    </div>
+  </div>
+
+  <!-- 04: IC LENS -->
+  <div class="doc-section">
+    <span class="section-anchor" id="ic-lens"></span>
+    <div class="section-num">04</div>
+    <h2 class="section-title">IC Lens</h2>
+    <div class="tool-block-body">
+      <p>Investment committee meetings require a specific kind of preparation: the ability to hold multiple deals in mind simultaneously, compare them across the same dimensions, and articulate a clear view on relative attractiveness. The standard tools for this work — Excel models, Word memos, PowerPoint decks — are optimised for depth on individual deals, not for comparison across them.</p>
+
+      <p>IC Lens is primarily a visualisation instrument. The comparison dashboard surfaces three to five deals side by side across six analytical dimensions, with mandate thresholds and benchmark overlays that make deviations immediately visible. The heatmap format allows a practitioner to scan across deals and identify outliers at a glance, which maps directly onto how IC discussions actually unfold, where attention moves quickly between deals rather than dwelling on any one.</p>
+
+      <p>It is worth being clear about what this tool does not do. The quality of any comparison is entirely dependent on the quality of the data entered. IC Lens does not evaluate businesses, assess management teams, or substitute for the analytical work that produces the underlying numbers. The AI synthesis feature generates a comparative narrative across the deals in the pipeline. It is useful as a first-pass summary and reflects the inputs provided, not an independent view on the deals themselves.</p>
+
+      <p>The AI upload feature addresses one specific practical friction: the manual transcription of deal data from teasers or CIMs into a comparison format. It accelerates data entry and flags low-confidence extractions, preserving the analyst's ability to verify before relying on the populated figures.</p>
+    </div>
+  </div>
+
+  <!-- 05: RADAR -->
+  <div class="doc-section">
+    <span class="section-anchor" id="radar"></span>
+    <div class="section-num">05</div>
+    <h2 class="section-title">Radar</h2>
+    <div class="tool-block-body">
+      <p>Logistics real estate funds accumulate large datasets of comparable transactions across submarkets and asset types: rents, cap rates, yields, vacancy rates, sale prices. The information is valuable, but navigating it efficiently requires either building custom internal tools or spending significant time in spreadsheets. Neither works well when a deal is moving quickly and a market view is needed fast.</p>
+
+      <p>Radar provides a visual market scanner for Netherlands logistics real estate. The Quick Screens feature functions as a shortcut layer, allowing an analyst to filter for assets matching a specific profile without manually querying a dataset. The map view surfaces spatial patterns in comparable activity that tabular data tends to obscure.</p>
+
+      <p>The AI Upload feature addresses the same data transformation problem that Asset Manager tackles: logistics data arrives in inconsistent formats from brokers, valuers, and internal systems. The upload layer normalises this automatically, removing a step that consumes analyst time without adding analytical value.</p>
+
+      <p>The Radar Intelligence panel generates a quick contextual summary for individual assets or submarkets on request, useful for orientation before a site visit or a broker meeting rather than as a substitute for primary research. The architecture is intentionally extensible. Connecting Radar to public APIs such as the Netherlands Cadastre or CBS statistics would allow the tool to surface live transaction data and flag new comparables automatically as they are registered, transforming it from a visualisation layer over static data into a live market monitoring tool.</p>
+    </div>
+  </div>
+
+  <!-- 06: ATLAS -->
+  <div class="doc-section">
+    <span class="section-anchor" id="atlas"></span>
+    <div class="section-num">06</div>
+    <h2 class="section-title">Atlas</h2>
+    <div class="tool-block-body">
+      <p>Macro market intelligence tools exist in abundance. Bloomberg, Oxford Economics, MSCI and others provide deep data coverage, and Atlas does not attempt to compete with them on that dimension. The constraint these tools share is that they surface data without translating it into investment positioning. That translation step — from macro indicators to a country-level allocation view — remains the analyst's responsibility, and it is time-consuming when done across a large number of markets at once.</p>
+
+      <p>Atlas addresses the synthesis step specifically. The tool aggregates six macro signals across 29 European countries into a composite health score, with user-adjustable weighting sliders that allow the analyst to reflect their fund's specific investment thesis. A fund with a shorter hold period weights political stability differently from one underwriting a ten-year logistics asset. Atlas makes that weighting explicit and adjustable rather than leaving it implicit in the analyst's head.</p>
+
+      <p>The AI layer generates country-level investment verdicts from the composite scores and signal mix. These are structured first-pass assessments, useful for scanning across markets before an allocation committee or for identifying countries worth deeper research. The current data is partially static and partially forecast-based, which is a real limitation for time-sensitive decisions. The appropriate use is strategic orientation. Connecting Atlas to ECB and Eurostat APIs directly is the natural next step, and the architecture supports it.</p>
+    </div>
+  </div>
+
+  <!-- 07: SIGNAL -->
+  <div class="doc-section">
+    <span class="section-anchor" id="signal"></span>
+    <div class="section-num">07</div>
+    <h2 class="section-title">Signal</h2>
+    <div class="tool-block-body">
+      <p>Signal is a deliberate departure from the logistics real estate focus of the other tools. It applies the same AI-augmented workflow architecture to energy market analysis, specifically the detection and interpretation of price anomalies across energy commodities.</p>
+
+      <p>The motivation was methodological rather than asset-class specific. Energy markets are among the most signal-dense environments in finance. Spread relationships, cross-commodity correlations, and macro linkages that are well-understood in normal conditions regularly break down during periods of stress or structural change. Detecting those breakdowns early, and understanding what they imply, is analytically demanding and time-sensitive work.</p>
+
+      <p>Signal monitors four anomaly types — spread extremes, correlation breakdowns, macro decouplings, and volatility spikes — and generates structured investment theses when anomalies are detected. Live oil price data feeds the detection layer; the AI generates the interpretation. As with every tool in this portfolio, the output is a starting point for analysis, not a conclusion. The value is in directing the analyst's attention toward where something interesting may be happening and providing a structured framework for thinking about why.</p>
+
+      <p>The broader point Signal illustrates is that the design principles underlying these tools are not specific to real estate. Identify a real pain point, apply AI to the friction rather than the judgement, and preserve the professional's responsibility for the output. That logic holds wherever skilled analysts are working with large amounts of data and limited time.</p>
+    </div>
+  </div>
+
+  <!-- CLOSING -->
+  <div class="closing-rule">
+    <p class="closing-text">
+      These tools are maintained as working instruments, not static demos. If you are working on something in European private markets and find any of this worth discussing, I would be glad to hear from you at <a href="/cdn-cgi/l/email-protection#077377687573726966736847606a666e6b2964686a"><span class="__cf_email__" data-cfemail="a6d2d6c9d4d2d3c8c7d2c9e6c1cbc7cfca88c5c9cb">[email&#160;protected]</span></a>.
+    </p>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2026 Tomaso 
