@@ -260,16 +260,20 @@
       z-index: 2;
       font-family: 'DM Mono', monospace;
     }
+    .jet-notes {
+      filter: drop-shadow(0 1px 1.5px rgba(8, 20, 36, 0.75))
+              drop-shadow(0 0 7px rgba(8, 20, 36, 0.4));
+    }
     .hero-photo::after {
       content: '';
       position: absolute; inset: 0;
       background: var(--navy);
       mix-blend-mode: multiply;
-      opacity: 0.26;
+      opacity: 0.17;
       transition: opacity 0.6s var(--ease-out);
       pointer-events: none;
     }
-    .hero-photo:hover::after { opacity: 0.10; }
+    .hero-photo:hover::after { opacity: 0.06; }
 
     /* annotation choreography: lines draw, labels surface */
     .nl {
@@ -728,20 +732,20 @@
           <path class="nl nd6" pathLength="1" d="M70,842 H730" stroke="#FAFAF8" stroke-opacity="0.45" stroke-width="1" stroke-dasharray="3 6" fill="none"/>
           <text class="nt nd7" x="70" y="864" font-size="12" letter-spacing="2" fill="#FAFAF8" fill-opacity="0.9">ALT. 372 M · 46.2074° N</text>
           <!-- exit velocity, leader to nozzle -->
-          <path class="nl nd7" pathLength="1" d="M408,818 L312,766" stroke="#0F2744" stroke-width="1.1" fill="none"/>
-          <text class="nt nd7" x="306" y="760" font-size="14" letter-spacing="1.5" fill="#0F2744" text-anchor="end">V₀ ≈ 200 KM/H</text>
+          <path class="nl nd7" pathLength="1" d="M408,818 L312,766" stroke="#FAFAF8" stroke-opacity="0.8" stroke-width="1.1" fill="none"/>
+          <text class="nt nd7" x="306" y="760" font-size="14" letter-spacing="1.5" fill="#FAFAF8" text-anchor="end">V₀ ≈ 200 KM/H</text>
           <!-- flow, leader to column -->
-          <path class="nl nd8" pathLength="1" d="M408,600 L318,556" stroke="#0F2744" stroke-width="1.1" fill="none"/>
-          <text class="nt nd8" x="312" y="550" font-size="14" letter-spacing="1.5" fill="#0F2744" text-anchor="end">≈ 500 L/S</text>
+          <path class="nl nd8" pathLength="1" d="M408,600 L318,556" stroke="#FAFAF8" stroke-opacity="0.8" stroke-width="1.1" fill="none"/>
+          <text class="nt nd8" x="312" y="550" font-size="14" letter-spacing="1.5" fill="#FAFAF8" text-anchor="end">≈ 500 L/S</text>
           <!-- plume drift -->
-          <path class="nl nd8" pathLength="1" d="M474,300 H544" stroke="#0F2744" stroke-width="1.1" stroke-dasharray="4 5" fill="none"/>
-          <path class="nl nd8" pathLength="1" d="M536,295 L546,300 L536,305" stroke="#0F2744" stroke-width="1.1" fill="none"/>
-          <text class="nt nd8" x="554" y="305" font-size="13" letter-spacing="1.5" fill="#0F2744">DÉRIVE 3°</text>
+          <path class="nl nd8" pathLength="1" d="M474,300 H544" stroke="#FAFAF8" stroke-opacity="0.8" stroke-width="1.1" stroke-dasharray="4 5" fill="none"/>
+          <path class="nl nd8" pathLength="1" d="M536,295 L546,300 L536,305" stroke="#FAFAF8" stroke-opacity="0.8" stroke-width="1.1" fill="none"/>
+          <text class="nt nd8" x="554" y="305" font-size="13" letter-spacing="1.5" fill="#FAFAF8">DÉRIVE 3°</text>
           <!-- title block -->
-          <g class="nt nd9" font-family="DM Mono, monospace" fill="#0F2744">
-            <path d="M70,224 H236" stroke="#0F2744" stroke-opacity="0.5" stroke-width="1.2"/>
-            <text x="70" y="246" font-size="14" letter-spacing="2" fill-opacity="0.9">JET D'EAU · GENÈVE</text>
-            <text x="70" y="266" font-size="11.5" letter-spacing="2" fill-opacity="0.65">RELEVÉ 1:2000 · REV 2026</text>
+          <g class="nt nd9" font-family="DM Mono, monospace" fill="#FAFAF8">
+            <path d="M70,224 H236" stroke="#FAFAF8" stroke-opacity="0.6" stroke-width="1.2"/>
+            <text x="70" y="246" font-size="14" letter-spacing="2" fill-opacity="0.95">JET D'EAU · GENÈVE</text>
+            <text x="70" y="266" font-size="11.5" letter-spacing="2" fill-opacity="0.8">RELEVÉ 1:2000 · REV 2026</text>
           </g>
         </svg>
       </div>
