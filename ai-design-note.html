@@ -227,11 +227,13 @@
     <div class="toc-label">Contents</div>
     <ul class="toc-list">
       <li><span class="toc-num">01</span><a href="#philosophy">Where I start</a></li>
-      <li><span class="toc-num">02</span><a href="#lp-report">LP Report Generator</a></li>
-      <li><span class="toc-num">03</span><a href="#asset-manager">Asset Manager</a></li>
-      <li><span class="toc-num">04</span><a href="#parcelle">Parcelle</a></li>
-      <li><span class="toc-num">05</span><a href="#ic-lens">IC Lens</a></li>
-      <li><span class="toc-num">06</span><a href="#radar">Radar</a></li>
+      <li><span class="toc-num">02</span><a href="#corridor">Corridor</a></li>
+      <li><span class="toc-num">03</span><a href="#orrery">Orrery</a></li>
+      <li><span class="toc-num">04</span><a href="#spread">The Spread</a></li>
+      <li><span class="toc-num">05</span><a href="#horizon">Horizon</a></li>
+      <li><span class="toc-num">06</span><a href="#lineage">Lineage</a></li>
+      <li><span class="toc-num">07</span><a href="#dossier">Dossier</a></li>
+      <li><span class="toc-num">08</span><a href="#parcelle">Parcelle</a></li>
     </ul>
   </div>
 
@@ -246,54 +248,112 @@
         <p>I only let a model do work where I'd spot the mistake myself.</p>
       </div>
 
-      <p>I built these tools in 2026 while working as an investment analyst on a pan-European logistics fund. Each one started with a task I was doing by hand and didn't enjoy: chasing missing numbers before an LP report, re-keying valuation reports into a tracker, pulling the same Geneva planning layers one by one.</p>
+      <p>I built these tools in 2026 while working as an investment analyst on a pan-European logistics fund. Each one answers a question I keep asking at work, and each is built around one drawing that answers it faster than a table could: how much logistics stock sits in a catchment, what a family's private-markets programme is worth and when it will be called, what the share price says a landlord's portfolio yields, what a loan book costs to refinance on today's curve.</p>
 
       <p>My rule for where AI goes is simple. If a step needs judgement, the analyst keeps it. If a step is mostly copying, reformatting or translating, a model can take the first pass, provided the result is quick to check against the source. In practice that means extraction and first drafts, and never the valuation call or the investment conclusion.</p>
 
       <p>The risk I worry about most is people using these models for work they couldn't do without them. The output reads well, so errors last longer than they should. Knowing what a sensible cap rate or a stretched covenant looks like comes from years of doing the work by hand, and I'd rather my tools didn't skip that step.</p>
 
-      <p>The other constraint is confidentiality. Fund data, tenant credit files and loan terms shouldn't go into a model unless the firm knows where that data is stored, whether it's retained, and who can see it. That's why every demo here runs on illustrative or public data only.</p>
+      <p>So this second set goes further than the first. No tool calls a model while you use it, and none shows text a model would have written. The finance is computed in code from the underlying data: IRR from dated cash flows, implied yields from price, debt and rent, forwards from the spot curve, effective ownership along the chain. The one place a model works is in building Dossier, where it reads company filings and every quote it returns is checked word for word against the filing before it can appear.</p>
+
+      <p>The other constraint is confidentiality. Fund data, tenant credit files and loan terms shouldn't go into a model unless the firm knows where that data is stored, whether it's retained, and who can see it. That's why everything here runs on public or illustrative data only.</p>
 
       <div class="demo-note">
-        <div class="demo-note-label">How the demos work</div>
-        <p>The demos don't call a live model. Where a tool shows an AI briefing, memo or answer, it's a pre-written example of what a live call would return. That keeps API keys out of the browser and avoids paying for every visit. Parcelle has no AI layer and queries Geneva's public data services live. All portfolio and deal figures are illustrative.</p>
+        <div class="demo-note-label">How to read the numbers</div>
+        <p>Every figure carries a small tag: SRC for a value taken from its source, CALC for one computed in code from real data, ILL for illustrative data made up for the demo. Click it to see the source, the date and how it was computed. Real data comes from public sources through nightly or periodic snapshots: the Dutch building register, the ECB, company reports and the SEC. The family office in Orrery and Lineage and the loan book in Horizon are fictional, and labelled so on screen.</p>
       </div>
 
     </div>
   </div>
 
-  <!-- 02: LP REPORT GENERATOR -->
+  <!-- 02: CORRIDOR -->
   <div class="doc-section">
-    <span class="section-anchor" id="lp-report"></span>
+    <span class="section-anchor" id="corridor"></span>
     <div class="section-num">02</div>
-    <h2 class="section-title">LP Report Generator</h2>
+    <h2 class="section-title">Corridor</h2>
     <div class="tool-block-body">
-      <p>Most of the time on a quarterly LP report goes on getting the data right, not on the writing. Missing figures turn into vague sentences, and unchecked figures turn into errors that an LP will notice before you do.</p>
+      <p>Ask how much logistics stock sits around Venlo and you usually get a broker's estimate, rounded and a quarter old. The Dutch building register already holds the answer for every building, with its real outline and construction year.</p>
 
-      <p>So the tool puts data first. You fill in the asset table, the debt schedule and the NAV bridge, and a set of rules flags what I'd want to catch before drafting: WALB under three years, LTV close to its covenant, occupancy below 90%, unhedged debt maturing within 18 months, a valuation uplift on a half-empty building. Critical flags block drafting. Warnings stay on screen until someone deals with them.</p>
+      <p>Corridor draws every building in the register of at least 5,000 m² with an industrial unit, 8,814 of them, extruded in 3D over a night map of the Netherlands. Heights come from the national lidar survey where it can measure the roof, and are marked as assumed where it can't. Drop a catchment anywhere and the panel gives the count, total footprint, median size, age profile and the share built since 2015; scrub the years and watch the box boom of the 2000s and 2010s rise.</p>
 
-      <p>Drafted text is marked so you can see what was generated and what was written or edited by hand. Each section is signed off separately, editing a signed section reopens it, and every change is logged. That matters when compliance reads the report before it goes out.</p>
+      <p>The hard part was deciding what not to count. The register's industrial use also covers farming, so 1,523 glasshouses are screened out using the national topographic map and the lidar roof height. Footprint is labelled footprint, not lettable area. There's no AI here: it's a register, drawn properly.</p>
     </div>
   </div>
 
-  <!-- 03: ASSET MANAGER -->
+  <!-- 03: ORRERY -->
   <div class="doc-section">
-    <span class="section-anchor" id="asset-manager"></span>
+    <span class="section-anchor" id="orrery"></span>
     <div class="section-num">03</div>
-    <h2 class="section-title">Asset Manager</h2>
+    <h2 class="section-title">Orrery</h2>
     <div class="tool-block-body">
-      <p>On a multi-country fund the inputs come from everywhere: valuers, property managers, lenders, credit agencies, each in its own format and on its own timetable. Pulling them into one view takes hours and very little thought.</p>
+      <p>A family office's private-markets programme is a set of commitments made over many years, each calling and returning cash on its own timetable. The usual report is a table, which tells you the totals and hides the shape.</p>
 
-      <p>Asset Manager puts the portfolio on one screen: GAV, rent, debt, LTV and WALT, how each has moved since acquisition, and a drill-down per asset with quarterly history, tenancy and financing. Quarterly updates carry forward anything that hasn't changed. Alert rules watch for LTV and ICR getting close to covenant, short WALT, upcoming loan maturities, falling valuations and tenant credit downgrades.</p>
+      <p>Orrery draws the programme of a fictional Geneva family as an engraved orrery: one ring per vintage, one sector per strategy, each fund a planet sized to its NAV with a dashed ring for what is still to be called. Below it, the cumulative cash-flow tide shows the J-curve and a low, base and high forecast. Click a fund for its metrics, cash flows and look-through holdings.</p>
 
-      <p>The AI features sit on top: an asset or portfolio briefing, free questions across the portfolio, and lease questions answered with a pointer to the clause, including for French, Italian and Dutch leases. In the demo these are scripted examples. Import from the CSV template works as is; free-format PDF and spreadsheet import needs the live model.</p>
+      <p>The funds are illustrative, but nothing on the screen is typed in. IRR is computed from dated cash flows, TVPI is distributions plus NAV over paid-in, and the NAV roll-forward has to hold every quarter. Exchange rates are the real ECB fixes. Those identities are tested in code, because a sharp reader will check whether the IRR fits the multiple.</p>
     </div>
   </div>
 
-  <!-- 04: PARCELLE -->
+  <!-- 04: THE SPREAD -->
+  <div class="doc-section">
+    <span class="section-anchor" id="spread"></span>
+    <div class="section-num">04</div>
+    <h2 class="section-title">The Spread</h2>
+    <div class="tool-block-body">
+      <p>When rates jumped in 2022, listed logistics landlords repriced within weeks while their valuers moved over several reporting periods. The gap between the two is a number I watch, and it's rarely shown on one page.</p>
+
+      <p>The Spread compares the yield implied by each share price with the EPRA net initial yield the valuers report, for eight European landlords and Prologis, against the ten-year Bund and gilt. In October 2022 Tritax Big Box's share price implied 5.24% against 3.36% reported. Prologis's offer for SEGRO is shown against SEGRO's book.</p>
+
+      <p>The fundamentals were transcribed from the published reports by hand, with the document, page and table row recorded for every value, then re-checked: rent over gross value has to give the printed yield. Prologis reports under US accounting with no valuer yield, so it sits on its own basis, an implied cap rate against its reported transaction cap rates, and is kept out of the ranking. No AI was used for the figures.</p>
+    </div>
+  </div>
+
+  <!-- 05: HORIZON -->
+  <div class="doc-section">
+    <span class="section-anchor" id="horizon"></span>
+    <div class="section-num">05</div>
+    <h2 class="section-title">Horizon</h2>
+    <div class="tool-block-body">
+      <p>Refinancing risk on a leveraged real-asset portfolio comes down to two things: when the loans mature, and what the curve says money will cost then. Most models look at the first and assume the second.</p>
+
+      <p>Horizon draws every quarter-end euro AAA curve since 2004 as a ridgeline, so the negative-rate years and the 2022 to 2024 inversion read at a glance. Below it, a refinancing wall stacks an illustrative loan book by maturity. Each loan is repriced at the forward rate on today's curve plus a swap spread and margin, and the pro-forma interest cover is checked against a covenant you can edit.</p>
+
+      <p>The curves are the ECB's own. The loan book is fictional and labelled so; paste in your own as CSV and it never leaves the browser.</p>
+    </div>
+  </div>
+
+  <!-- 06: LINEAGE -->
+  <div class="doc-section">
+    <span class="section-anchor" id="lineage"></span>
+    <div class="section-num">06</div>
+    <h2 class="section-title">Lineage</h2>
+    <div class="tool-block-body">
+      <p>Who actually owns an asset in a family structure is a product of percentages along a chain: a trust, a holding company, a subsidiary, an SPV. The org chart shows the boxes and leaves the multiplication to the reader.</p>
+
+      <p>Lineage draws the same fictional family as Orrery as an engraved holding structure. Select any asset and its chain to the ultimate owners lights up, with each owner's effective share; select a person to see everything they have an interest in. Succession, a buy-out and a property sale can be run on top, separately or together.</p>
+
+      <p>The checks matter more than the drawing here. Effective shares along every path must sum to 100%, value must be conserved at every node, and after any scenario the family's wealth must equal what it was plus the explicit flows. Those hold across every scenario combination, tested in code.</p>
+    </div>
+  </div>
+
+  <!-- 07: DOSSIER -->
+  <div class="doc-section">
+    <span class="section-anchor" id="dossier"></span>
+    <div class="section-num">07</div>
+    <h2 class="section-title">Dossier</h2>
+    <div class="tool-block-body">
+      <p>A listed company's filings already say most of what an analyst wants: how it makes money, who owns it, how it is financed, who it depends on, and what it now warns about that it didn't last year. The trouble is that it's spread over thousands of documents.</p>
+
+      <p>Dossier draws NVIDIA, Tesla, Apple and Amazon as survey atlases of nine plates each: segments as an exploded stack, ownership rings, the board and pay, the debt maturity wall, a network of customers and suppliers, the share price with every filing on it, a redline of the risk factors year on year, and the company's physical footprint. Every figure links to the SEC filing it came from.</p>
+
+      <p>This is the one place a model works. Customers, suppliers, related parties, covenants and risk changes sit in the text of the filings, so the AI coding assistant I build with read them during the build and wrote each fact with its verbatim quote. A script then rejects any quote that isn't word for word in the downloaded filing, and a claim that a risk is new has to agree with the year-on-year diff. 109 facts passed. The site itself never calls a model.</p>
+    </div>
+  </div>
+
+  <!-- 08: PARCELLE -->
   <div class="doc-section">
     <span class="section-anchor" id="parcelle"></span>
-    <div class="section-num">04</div>
+    <div class="section-num">08</div>
     <h2 class="section-title">Parcelle</h2>
     <div class="tool-block-body">
       <p>Geneva's planning data is public, but it's split across separate SITG layers: cadastre, zoning, building footprints, permits, PLQs, raising-the-roof potential and the OCEN heating index. Building a view of one parcel means opening each of them in turn.</p>
@@ -301,34 +361,6 @@
       <p>Parcelle queries those layers live from the canton's services and shows them together for each parcel, with a link to the official RDPPF extract and to any PLQ document. The scan tool screens a commune by zone, plot size and how much of the permitted volume is already built, and exports the shortlist to CSV.</p>
 
       <p>Every figure shows where it came from. Where something is inferred, such as commune rent levels or a price index modelled from tax data, it's labelled as such, and the data tab lists which public sources are connected and which aren't yet. Owner identity is left out on purpose. There's no AI here: it's a screening tool, and deciding what a parcel is worth stays with the analyst.</p>
-    </div>
-  </div>
-
-  <!-- 05: IC LENS -->
-  <div class="doc-section">
-    <span class="section-anchor" id="ic-lens"></span>
-    <div class="section-num">05</div>
-    <h2 class="section-title">IC Lens</h2>
-    <div class="tool-block-body">
-      <p>Excel models, memos and decks are built for depth on one deal. Investment committees usually compare several at once, and that comparison tends to happen in someone's head.</p>
-
-      <p>IC Lens puts three to five buyout deals side by side on entry valuation, leverage, returns, growth assumptions and fit with the mandate, with a heatmap against thresholds so outliers stand out. It's a visual layer. It doesn't check whether the inputs are right, and it doesn't replace the work behind them.</p>
-
-      <p>Two AI features are mocked up in the demo: a comparative note across the deals, and extraction of deal figures from a teaser or CIM with low-confidence fields flagged for checking.</p>
-    </div>
-  </div>
-
-  <!-- 06: RADAR -->
-  <div class="doc-section">
-    <span class="section-anchor" id="radar"></span>
-    <div class="section-num">06</div>
-    <h2 class="section-title">Radar</h2>
-    <div class="tool-block-body">
-      <p>When a deal is moving, you need a market view in minutes, and the comparables are usually sitting in a spreadsheet nobody wants to open.</p>
-
-      <p>Radar maps around ninety illustrative logistics assets across the main Dutch corridors: Venlo, Tilburg and Waalwijk, Rotterdam, Schiphol, Almere, Roosendaal. You can filter by size, owner type, hold period, clear height and vacancy, or use preset screens for likely off-market sellers, value-add, core income and grade A stock.</p>
-
-      <p>Asset commentary and data upload are scripted in the demo. The obvious next step is connecting it to Kadaster transaction records, so new comparables show up when they're registered rather than when a broker mentions them.</p>
     </div>
   </div>
 
