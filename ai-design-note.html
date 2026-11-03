@@ -194,15 +194,15 @@
     <div class="nav-divider"></div>
     <span class="nav-title">AI Design Note</span>
   </div>
-  <span class="nav-label">Technical Note · 2026</span>
+  <span class="nav-label">Design note · 2026</span>
 </nav>
 
 <div class="page-wrap">
 
   <!-- HEADER -->
-  <div class="doc-eyebrow">Technical Note</div>
-  <h1 class="doc-title">AI in Finance — Applied Carefully</h1>
-  <p class="doc-subtitle">On building tools that augment skilled professionals, not replace their judgement.</p>
+  <div class="doc-eyebrow">Design note</div>
+  <h1 class="doc-title">How I use AI in these tools</h1>
+  <p class="doc-subtitle">Notes on where a model helps in investment work, and where I keep it out.</p>
 
   <div class="doc-meta">
     <div class="doc-meta-item">
@@ -216,8 +216,8 @@
     </div>
     <div class="doc-meta-sep"></div>
     <div class="doc-meta-item">
-      <span class="doc-meta-label">Date</span>
-      <span class="doc-meta-value">2026</span>
+      <span class="doc-meta-label">Updated</span>
+      <span class="doc-meta-value">November 2026</span>
     </div>
   </div>
 
@@ -225,7 +225,7 @@
   <div class="toc">
     <div class="toc-label">Contents</div>
     <ul class="toc-list">
-      <li><span class="toc-num">01</span><a href="#philosophy">The Right Starting Point</a></li>
+      <li><span class="toc-num">01</span><a href="#philosophy">Where I start</a></li>
       <li><span class="toc-num">02</span><a href="#lp-report">LP Report Generator</a></li>
       <li><span class="toc-num">03</span><a href="#asset-manager">Asset Manager</a></li>
       <li><span class="toc-num">04</span><a href="#parcelle">Parcelle</a></li>
@@ -238,28 +238,24 @@
   <div class="doc-section">
     <span class="section-anchor" id="philosophy"></span>
     <div class="section-num">01</div>
-    <h2 class="section-title">The Right Starting Point</h2>
+    <h2 class="section-title">Where I start</h2>
     <div class="section-body">
 
       <div class="callout">
-        <p>The most dangerous use of AI in finance is by someone who doesn't know what good looks like.</p>
+        <p>I only let a model do work where I'd spot the mistake myself.</p>
       </div>
 
-      <p>AI tools in finance are proliferating faster than the understanding of how to use them. The result is a category of output that is technically impressive but analytically hollow: reports that read fluently, models that run quickly, and memos that sound authoritative, while missing the judgement that makes any of it useful.</p>
+      <p>I built these tools in 2026 while working as an investment analyst on a pan-European logistics fund. Each one started with a task I was doing by hand and didn't enjoy: chasing missing numbers before an LP report, re-keying valuation reports into a tracker, pulling the same Geneva planning layers one by one.</p>
 
-      <p>The starting point for any worthwhile AI application is not the technology. It is a precise understanding of the pain point being addressed, built from real experience inside the workflow. Without that, AI does not augment a professional. It produces a convincing imitation of one.</p>
+      <p>My rule for where AI goes is simple. If a step needs judgement, the analyst keeps it. If a step is mostly copying, reformatting or translating, a model can take the first pass, provided the result is quick to check against the source. In practice that means extraction and first drafts, and never the valuation call or the investment conclusion.</p>
 
-      <p>There is a specific risk in finance. The craft of investment analysis — understanding a business, evaluating a management team, interpreting a set of accounts — is accumulated slowly, through exposure and repetition. AI can shortcut the surface presentation of that craft without building the underlying understanding. Used carelessly, it does not just produce low-quality output. It actively degrades the analytical capability of the people relying on it, because it removes the friction where learning happens.</p>
+      <p>The risk I worry about most is people using these models for work they couldn't do without them. The output reads well, so errors last longer than they should. Knowing what a sensible cap rate or a stretched covenant looks like comes from years of doing the work by hand, and I'd rather my tools didn't skip that step.</p>
 
-      <p>There is a second risk that receives less attention. Finance operates on information that is frequently confidential: client data, proprietary deal flow, fund performance, internal valuations. AI systems that are poorly configured, over-used, or connected to third-party infrastructure without proper controls are a genuine data security threat. Inputs fed into AI tools can be stored, used for model training, or exposed in ways that are not always visible to the user. Every firm deploying AI in a professional context needs clear rules around what data can and cannot enter these systems, how outputs are stored and shared, and who has oversight of the process. The tools documented here operate on demo data precisely because the alternative — encouraging users to input real client or fund information into a client-side application without server-side security controls — would be irresponsible. That boundary is a design choice, not a limitation.</p>
-
-      <p>The tools documented here were built from the opposite direction. Each one starts with a specific, real friction point encountered in investment or fund management work. The AI layer is added only where it addresses that friction in a way that frees up the analyst's attention for the work requiring genuine expertise. Not as a substitute for it.</p>
-
-      <p>The benchmark for each design decision was straightforward: does this make a skilled professional faster and sharper, or does it make it easier to produce output without understanding it? Where the answer pointed toward the latter, the feature was redesigned or removed.</p>
+      <p>The other constraint is confidentiality. Fund data, tenant credit files and loan terms shouldn't go into a model unless the firm knows where that data is stored, whether it's retained, and who can see it. That's why every demo here runs on illustrative or public data only.</p>
 
       <div class="demo-note">
-        <div class="demo-note-label">A note on the demos</div>
-        <p>The AI features in each tool were designed and tested using Claude (Anthropic). In the live demos, AI-generated responses are pre-loaded rather than generated in real time. This was a deliberate choice: exposing API keys in a client-side application is a security risk, and repeated live generation at scale carries a real cost. The pre-loaded responses were themselves generated by AI and are representative of what live generation produces. Connecting any of these tools to a live API requires only the addition of a server-side key handler — the architecture is built for it.</p>
+        <div class="demo-note-label">How the demos work</div>
+        <p>The demos don't call a live model. Where a tool shows an AI briefing, memo or answer, it's a pre-written example of what a live call would return. That keeps API keys out of the browser and avoids paying for every visit. Parcelle has no AI layer and queries Geneva's public data services live. All portfolio and deal figures are illustrative.</p>
       </div>
 
     </div>
@@ -271,13 +267,11 @@
     <div class="section-num">02</div>
     <h2 class="section-title">LP Report Generator</h2>
     <div class="tool-block-body">
-      <p>LP reporting is one of the highest-stakes communication tasks a fund manager performs. Limited partners have committed capital in good faith; the quarterly report is often the primary channel through which they evaluate whether that trust is warranted. A careless, generic, or inaccurate LP report does lasting damage to the GP-LP relationship in ways that are difficult to repair.</p>
+      <p>Most of the time on a quarterly LP report goes on getting the data right, not on the writing. Missing figures turn into vague sentences, and unchecked figures turn into errors that an LP will notice before you do.</p>
 
-      <p>The pain point this tool addresses is not the writing itself. It is the assembly and verification process that precedes it. Before a single sentence of a good LP report can be written, the portfolio data must be complete, consistent, and reviewed. Missing data produces hedged language. Unreviewed data produces errors. Both undermine the communication.</p>
+      <p>So the tool puts data first. You fill in the asset table, the debt schedule and the NAV bridge, and a set of rules flags what I'd want to catch before drafting: WALB under three years, LTV close to its covenant, occupancy below 90%, unhedged debt maturing within 18 months, a valuation uplift on a half-empty building. Critical flags block drafting. Warnings stay on screen until someone deals with them.</p>
 
-      <p>LP Report Generator is structured around this reality. The four-step workflow forces completeness before generation begins. The flagging system highlights missing or incomplete data points explicitly, making the gap between what is known and what is needed visible before work starts rather than after. This is a material improvement on the typical process, where missing information tends to surface mid-draft.</p>
-
-      <p>AI-generated content is colour-coded throughout, distinguishing human-authored text from generated narrative. This is a deliberate design choice: it preserves the professional's responsibility for the final output. The tool produces a content bank to work from, not a report to sign off on. Every generated paragraph is a starting point. The live audit log tracks every edit and generation event, which matters in a context where LP communications may be reviewed by legal or compliance.</p>
+      <p>Drafted text is marked so you can see what was generated and what was written or edited by hand. Each section is signed off separately, editing a signed section reopens it, and every change is logged. That matters when compliance reads the report before it goes out.</p>
     </div>
   </div>
 
@@ -287,15 +281,11 @@
     <div class="section-num">03</div>
     <h2 class="section-title">Asset Manager</h2>
     <div class="tool-block-body">
-      <p>Managing a portfolio of real estate assets means operating across multiple data sources simultaneously. Valuation reports, rent schedules, loan statements, and tenant credit files each arrive in different formats, updated on different schedules, and owned by different counterparties. Reconciling these into a coherent portfolio view requires no real analytical skill, yet it consumes a disproportionate amount of an asset manager's attention.</p>
+      <p>On a multi-country fund the inputs come from everywhere: valuers, property managers, lenders, credit agencies, each in its own format and on its own timetable. Pulling them into one view takes hours and very little thought.</p>
 
-      <p>Asset Manager was built around this pain point. The Command Centre provides a unified portfolio view — current GAV, gross rent, debt outstanding, and WALT — with entry-to-now delta tracking, portfolio trend charts, and expandable asset rows that surface financing headroom, return metrics, and credit evolution without leaving the screen. The Asset View drills into individual assets with quarterly performance charts, tenancy and financing detail, and a period-by-period data table. The quarterly update modal carries forward unchanged fields automatically. New assets can be onboarded directly from either screen via manual entry or AI-assisted import.</p>
+      <p>Asset Manager puts the portfolio on one screen: GAV, rent, debt, LTV and WALT, how each has moved since acquisition, and a drill-down per asset with quarterly history, tenancy and financing. Quarterly updates carry forward anything that hasn't changed. Alert rules watch for LTV and ICR getting close to covenant, short WALT, upcoming loan maturities, falling valuations and tenant credit downgrades.</p>
 
-      <p>The AI layer operates across four features. AI Upload accepts CSVs and PDFs in any format or language, interprets column names automatically — including French, Italian, and Dutch — and maps fields to the data model, flagging what is missing. AI Briefing generates a structured asset or portfolio note on demand: situation, risks, positives, and recommended actions. Ask the Portfolio answers direct questions about specific assets or cross-portfolio comparisons. Lease Q&amp;A allows the asset manager to ask plain-English questions about each asset's lease — break mechanics, repair obligations, indexation, assignment rights — and returns answers grounded in the specific clause and page number, with original-language excerpts for French, Italian, and Dutch documents.</p>
-
-      <p>The alert system surfaces covenant breaches, credit score deterioration, and WALT compression automatically across seven alert types, including loan maturity timelines, ICR proximity to covenant floor, valuation declines, and approaching break option deadlines. For an asset manager running multiple assets simultaneously, this is the difference between catching a developing issue early and discovering it in a quarterly report.</p>
-
-      <p>The Market Intelligence panel, accessible within the Asset View, adds a contextual layer to individual asset monitoring. It surfaces commentary across five categories — tenant news, logistics RE market data, macroeconomic conditions, regulatory developments, and country-specific intelligence for France, Italy, and the Netherlands — with each item tagged by severity and annotated with a portfolio relevance note. The intent is to make the connection between asset-level data and external developments legible without a separate research step.</p>
+      <p>The AI features sit on top: an asset or portfolio briefing, free questions across the portfolio, and lease questions answered with a pointer to the clause, including for French, Italian and Dutch leases. In the demo these are scripted examples. Import from the CSV template works as is; free-format PDF and spreadsheet import needs the live model.</p>
     </div>
   </div>
 
@@ -305,15 +295,11 @@
     <div class="section-num">04</div>
     <h2 class="section-title">Parcelle</h2>
     <div class="tool-block-body">
-      <p>Geneva real estate underwriting involves a set of data sources that are entirely public but spread across six separate cantonal systems. Cadastral boundaries and zone status sit in SITG. Ownership records, acquisition history, and transaction prices sit in the Registre Foncier. Communal politics — council composition, recent votes, opposition filings — sit in the FAO and Grand Conseil records. Energy class and decarbonisation compliance sit in the OCEN registry. Each system has its own interface, its own update cadence, and its own format. An analyst building a parcel view from scratch would spend most of their time on assembly, not analysis.</p>
+      <p>Geneva's planning data is public, but it's split across separate SITG layers: cadastre, zoning, building footprints, permits, PLQs, raising-the-roof potential and the OCEN heating index. Building a view of one parcel means opening each of them in turn.</p>
 
-      <p>Parcelle stitches these six sources into a single parcel-level intelligence layer, refreshed every six hours. The discovery map lets an analyst filter across zones, PLQs en vigueur and en élaboration, recent transaction activity, political risk, and ASLOCA activity simultaneously. Pre-set screens — zone 5 parcels above 2,000m², single owners above 70, CECB Class E or F — surface acquisition candidates without manual search.</p>
+      <p>Parcelle queries those layers live from the canton's services and shows them together for each parcel, with a link to the official RDPPF extract and to any PLQ document. The scan tool screens a commune by zone, plot size and how much of the permitted volume is already built, and exports the shortlist to CSV.</p>
 
-      <p>The parcel intelligence view aggregates all six data layers into a single screen. Cadastral status, ownership signals including estimated succession horizon, comparable transactions within 800 metres with price per m², and political context — communal council balance, recent votes, active referendum and ASLOCA activity — are presented together with source attribution and time-stamp on every field. The distinction between what the data shows and what can be inferred is made explicit throughout.</p>
-
-      <p>The AI synthesis step takes the four data panels and generates a structured underwriting memo: an overall risk score, green and red flags each grounded in a specific source, comparable déclassement precedents with timelines and outcomes, and a recommended due diligence sequence. The memo positions the parcel relative to historical Geneva zone 5 to ZD déclassement cases — including Pinchat (14 months, success), Corbillettes (11 years, compromise), and Cologny Pré-Byrum (failure) — so the analyst has a calibrated sense of range before committing to a position.</p>
-
-      <p>The watchlist and alert system allows standing queries to run continuously against all six sources. An alert set for zone 5 parcels above 2,000m² with owners above 70 in right-leaning communes will surface new matches within six hours of the next data sync. The intent is to make the sourcing layer systematic rather than episodic — so opportunities are not missed because no one had time to run the search that week.</p>
+      <p>Every figure shows where it came from. Where something is inferred, such as commune rent levels or a price index modelled from tax data, it's labelled as such, and the data tab lists which public sources are connected and which aren't yet. Owner identity is left out on purpose. There's no AI here: it's a screening tool, and deciding what a parcel is worth stays with the analyst.</p>
     </div>
   </div>
 
@@ -323,13 +309,11 @@
     <div class="section-num">05</div>
     <h2 class="section-title">IC Lens</h2>
     <div class="tool-block-body">
-      <p>Investment committee meetings require a specific kind of preparation: the ability to hold multiple deals in mind simultaneously, compare them across the same dimensions, and articulate a clear view on relative attractiveness. The standard tools for this work — Excel models, Word memos, PowerPoint decks — are optimised for depth on individual deals, not for comparison across them.</p>
+      <p>Excel models, memos and decks are built for depth on one deal. Investment committees usually compare several at once, and that comparison tends to happen in someone's head.</p>
 
-      <p>IC Lens is primarily a visualisation instrument. The comparison dashboard surfaces three to five deals side by side across six analytical dimensions, with mandate thresholds and benchmark overlays that make deviations immediately visible. The heatmap format allows a practitioner to scan across deals and identify outliers at a glance, which maps directly onto how IC discussions actually unfold, where attention moves quickly between deals rather than dwelling on any one.</p>
+      <p>IC Lens puts three to five buyout deals side by side on entry valuation, leverage, returns, growth assumptions and fit with the mandate, with a heatmap against thresholds so outliers stand out. It's a visual layer. It doesn't check whether the inputs are right, and it doesn't replace the work behind them.</p>
 
-      <p>It is worth being clear about what this tool does not do. The quality of any comparison is entirely dependent on the quality of the data entered. IC Lens does not evaluate businesses, assess management teams, or substitute for the analytical work that produces the underlying numbers. The AI synthesis feature generates a comparative narrative across the deals in the pipeline. It is useful as a first-pass summary and reflects the inputs provided, not an independent view on the deals themselves.</p>
-
-      <p>The AI upload feature addresses one specific practical friction: the manual transcription of deal data from teasers or CIMs into a comparison format. It accelerates data entry and flags low-confidence extractions, preserving the analyst's ability to verify before relying on the populated figures.</p>
+      <p>Two AI features are mocked up in the demo: a comparative note across the deals, and extraction of deal figures from a teaser or CIM with low-confidence fields flagged for checking.</p>
     </div>
   </div>
 
@@ -339,13 +323,11 @@
     <div class="section-num">06</div>
     <h2 class="section-title">Radar</h2>
     <div class="tool-block-body">
-      <p>Logistics real estate funds accumulate large datasets of comparable transactions across submarkets and asset types: rents, cap rates, yields, vacancy rates, sale prices. The information is valuable, but navigating it efficiently requires either building custom internal tools or spending significant time in spreadsheets. Neither works well when a deal is moving quickly and a market view is needed fast.</p>
+      <p>When a deal is moving, you need a market view in minutes, and the comparables are usually sitting in a spreadsheet nobody wants to open.</p>
 
-      <p>Radar provides a visual market scanner for Netherlands logistics real estate. The Quick Screens feature functions as a shortcut layer, allowing an analyst to filter for assets matching a specific profile without manually querying a dataset. The map view surfaces spatial patterns in comparable activity that tabular data tends to obscure.</p>
+      <p>Radar maps around ninety illustrative logistics assets across the main Dutch corridors: Venlo, Tilburg and Waalwijk, Rotterdam, Schiphol, Almere, Roosendaal. You can filter by size, owner type, hold period, clear height and vacancy, or use preset screens for likely off-market sellers, value-add, core income and grade A stock.</p>
 
-      <p>The AI Upload feature addresses the same data transformation problem that Asset Manager tackles: logistics data arrives in inconsistent formats from brokers, valuers, and internal systems. The upload layer normalises this automatically, removing a step that consumes analyst time without adding analytical value.</p>
-
-      <p>The Radar Intelligence panel generates a quick contextual summary for individual assets or submarkets on request, useful for orientation before a site visit or a broker meeting rather than as a substitute for primary research. The architecture is intentionally extensible. Connecting Radar to public APIs such as the Netherlands Cadastre or CBS statistics would allow the tool to surface live transaction data and flag new comparables automatically as they are registered, transforming it from a visualisation layer over static data into a live market monitoring tool.</p>
+      <p>Asset commentary and data upload are scripted in the demo. The obvious next step is connecting it to Kadaster transaction records, so new comparables show up when they're registered rather than when a broker mentions them.</p>
     </div>
   </div>
 
@@ -353,7 +335,7 @@
   <!-- CLOSING -->
   <div class="closing-rule">
     <p class="closing-text">
-      These tools are maintained as working instruments, not static demos. If you are working on something in European private markets and find any of this worth discussing, I would be glad to hear from you at <a href="mailto:tportunato@daacap.com">tportunato@daacap.com</a>.
+      If you work in European real estate or private markets and want to compare notes, I'm at <a href="mailto:tportunato@daacap.com">tportunato@daacap.com</a>.
     </p>
   </div>
 
@@ -361,4 +343,9 @@
 
 <!-- FOOTER -->
 <footer>
-  <span>© 2026 Tomaso 
+  <span>© 2026 Tomaso Portunato</span>
+  <a href="https://portfolio-dusky-sigma-99.vercel.app/">Back to portfolio</a>
+</footer>
+
+</body>
+</html>
