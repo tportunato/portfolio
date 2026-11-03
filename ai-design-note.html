@@ -227,13 +227,11 @@
     <div class="toc-label">Contents</div>
     <ul class="toc-list">
       <li><span class="toc-num">01</span><a href="#philosophy">Where I start</a></li>
-      <li><span class="toc-num">02</span><a href="#corridor">Corridor</a></li>
-      <li><span class="toc-num">03</span><a href="#orrery">Orrery</a></li>
-      <li><span class="toc-num">04</span><a href="#spread">The Spread</a></li>
-      <li><span class="toc-num">05</span><a href="#horizon">Horizon</a></li>
-      <li><span class="toc-num">06</span><a href="#lineage">Lineage</a></li>
-      <li><span class="toc-num">07</span><a href="#dossier">Dossier</a></li>
-      <li><span class="toc-num">08</span><a href="#parcelle">Parcelle</a></li>
+      <li><span class="toc-num">02</span><a href="#dossier">Dossier</a></li>
+      <li><span class="toc-num">03</span><a href="#parcelle">Parcelle</a></li>
+      <li><span class="toc-num">04</span><a href="#lineage">Lineage</a></li>
+      <li><span class="toc-num">05</span><a href="#corridor">Corridor</a></li>
+      <li><span class="toc-num">06</span><a href="#orrery">Orrery</a></li>
     </ul>
   </div>
 
@@ -248,98 +246,28 @@
         <p>I only let a model do work where I'd spot the mistake myself.</p>
       </div>
 
-      <p>I built these tools in 2026 while working as an investment analyst on a pan-European logistics fund. Each one answers a question I keep asking at work, and each is built around one drawing that answers it faster than a table could: how much logistics stock sits in a catchment, what a family's private-markets programme is worth and when it will be called, what the share price says a landlord's portfolio yields, what a loan book costs to refinance on today's curve.</p>
+      <p>I built these tools in 2026 while working as an investment analyst on a pan-European logistics fund. Each one answers a question I keep asking at work, and each is built around one drawing that answers it faster than a table could: what a listed company's own filings say about it, who really owns an asset at the end of a chain of holding companies, how much logistics stock sits in a catchment, what a family's private-markets programme is worth and when it will be called.</p>
 
       <p>My rule for where AI goes is simple. If a step needs judgement, the analyst keeps it. If a step is mostly copying, reformatting or translating, a model can take the first pass, provided the result is quick to check against the source. In practice that means extraction and first drafts, and never the valuation call or the investment conclusion.</p>
 
       <p>The risk I worry about most is people using these models for work they couldn't do without them. The output reads well, so errors last longer than they should. Knowing what a sensible cap rate or a stretched covenant looks like comes from years of doing the work by hand, and I'd rather my tools didn't skip that step.</p>
 
-      <p>So this second set goes further than the first. No tool calls a model while you use it, and none shows text a model would have written. The finance is computed in code from the underlying data: IRR from dated cash flows, implied yields from price, debt and rent, forwards from the spot curve, effective ownership along the chain. The one place a model works is in building Dossier, where it reads company filings and every quote it returns is checked word for word against the filing before it can appear.</p>
+      <p>So this second set goes further than the first. No tool calls a model while you use it, and none shows text a model would have written. The finance is computed in code from the underlying data: IRR from dated cash flows, effective ownership along the chain, segments that reconcile to the reported totals. The one place a model works is in building Dossier, where it reads company filings and every quote it returns is checked word for word against the filing before it can appear.</p>
 
       <p>The other constraint is confidentiality. Fund data, tenant credit files and loan terms shouldn't go into a model unless the firm knows where that data is stored, whether it's retained, and who can see it. That's why everything here runs on public or illustrative data only.</p>
 
       <div class="demo-note">
         <div class="demo-note-label">How to read the numbers</div>
-        <p>Every figure carries a small tag: SRC for a value taken from its source, CALC for one computed in code from real data, ILL for illustrative data made up for the demo. Click it to see the source, the date and how it was computed. Real data comes from public sources through nightly or periodic snapshots: the Dutch building register, the ECB, company reports and the SEC. The family office in Orrery and Lineage and the loan book in Horizon are fictional, and labelled so on screen.</p>
+        <p>Every figure carries a small tag: SRC for a value taken from its source, CALC for one computed in code from real data, ILL for illustrative data made up for the demo. Click it to see the source, the date and how it was computed. Real data comes from public sources through nightly or periodic snapshots: the Dutch building register, the ECB and the SEC. The family office in Orrery and Lineage is fictional, and labelled so on screen.</p>
       </div>
 
     </div>
   </div>
 
-  <!-- 02: CORRIDOR -->
-  <div class="doc-section">
-    <span class="section-anchor" id="corridor"></span>
-    <div class="section-num">02</div>
-    <h2 class="section-title">Corridor</h2>
-    <div class="tool-block-body">
-      <p>Ask how much logistics stock sits around Venlo and you usually get a broker's estimate, rounded and a quarter old. The Dutch building register already holds the answer for every building, with its real outline and construction year.</p>
-
-      <p>Corridor draws every building in the register of at least 5,000 m² with an industrial unit, 8,814 of them, extruded in 3D over a night map of the Netherlands. Heights come from the national lidar survey where it can measure the roof, and are marked as assumed where it can't. Drop a catchment anywhere and the panel gives the count, total footprint, median size, age profile and the share built since 2015; scrub the years and watch the box boom of the 2000s and 2010s rise.</p>
-
-      <p>The hard part was deciding what not to count. The register's industrial use also covers farming, so 1,523 glasshouses are screened out using the national topographic map and the lidar roof height. Footprint is labelled footprint, not lettable area. There's no AI here: it's a register, drawn properly.</p>
-    </div>
-  </div>
-
-  <!-- 03: ORRERY -->
-  <div class="doc-section">
-    <span class="section-anchor" id="orrery"></span>
-    <div class="section-num">03</div>
-    <h2 class="section-title">Orrery</h2>
-    <div class="tool-block-body">
-      <p>A family office's private-markets programme is a set of commitments made over many years, each calling and returning cash on its own timetable. The usual report is a table, which tells you the totals and hides the shape.</p>
-
-      <p>Orrery draws the programme of a fictional Geneva family as an engraved orrery: one ring per vintage, one sector per strategy, each fund a planet sized to its NAV with a dashed ring for what is still to be called. Below it, the cumulative cash-flow tide shows the J-curve and a low, base and high forecast. Click a fund for its metrics, cash flows and look-through holdings.</p>
-
-      <p>The funds are illustrative, but nothing on the screen is typed in. IRR is computed from dated cash flows, TVPI is distributions plus NAV over paid-in, and the NAV roll-forward has to hold every quarter. Exchange rates are the real ECB fixes. Those identities are tested in code, because a sharp reader will check whether the IRR fits the multiple.</p>
-    </div>
-  </div>
-
-  <!-- 04: THE SPREAD -->
-  <div class="doc-section">
-    <span class="section-anchor" id="spread"></span>
-    <div class="section-num">04</div>
-    <h2 class="section-title">The Spread</h2>
-    <div class="tool-block-body">
-      <p>When rates jumped in 2022, listed logistics landlords repriced within weeks while their valuers moved over several reporting periods. The gap between the two is a number I watch, and it's rarely shown on one page.</p>
-
-      <p>The Spread compares the yield implied by each share price with the EPRA net initial yield the valuers report, for eight European landlords and Prologis, against the ten-year Bund and gilt. In October 2022 Tritax Big Box's share price implied 5.24% against 3.36% reported. Prologis's offer for SEGRO is shown against SEGRO's book.</p>
-
-      <p>The fundamentals were transcribed from the published reports by hand, with the document, page and table row recorded for every value, then re-checked: rent over gross value has to give the printed yield. Prologis reports under US accounting with no valuer yield, so it sits on its own basis, an implied cap rate against its reported transaction cap rates, and is kept out of the ranking. No AI was used for the figures.</p>
-    </div>
-  </div>
-
-  <!-- 05: HORIZON -->
-  <div class="doc-section">
-    <span class="section-anchor" id="horizon"></span>
-    <div class="section-num">05</div>
-    <h2 class="section-title">Horizon</h2>
-    <div class="tool-block-body">
-      <p>Refinancing risk on a leveraged real-asset portfolio comes down to two things: when the loans mature, and what the curve says money will cost then. Most models look at the first and assume the second.</p>
-
-      <p>Horizon draws every quarter-end euro AAA curve since 2004 as a ridgeline, so the negative-rate years and the 2022 to 2024 inversion read at a glance. Below it, a refinancing wall stacks an illustrative loan book by maturity. Each loan is repriced at the forward rate on today's curve plus a swap spread and margin, and the pro-forma interest cover is checked against a covenant you can edit.</p>
-
-      <p>The curves are the ECB's own. The loan book is fictional and labelled so; paste in your own as CSV and it never leaves the browser.</p>
-    </div>
-  </div>
-
-  <!-- 06: LINEAGE -->
-  <div class="doc-section">
-    <span class="section-anchor" id="lineage"></span>
-    <div class="section-num">06</div>
-    <h2 class="section-title">Lineage</h2>
-    <div class="tool-block-body">
-      <p>Who actually owns an asset in a family structure is a product of percentages along a chain: a trust, a holding company, a subsidiary, an SPV. The org chart shows the boxes and leaves the multiplication to the reader.</p>
-
-      <p>Lineage draws the same fictional family as Orrery as an engraved holding structure. Select any asset and its chain to the ultimate owners lights up, with each owner's effective share; select a person to see everything they have an interest in. Succession, a buy-out and a property sale can be run on top, separately or together.</p>
-
-      <p>The checks matter more than the drawing here. Effective shares along every path must sum to 100%, value must be conserved at every node, and after any scenario the family's wealth must equal what it was plus the explicit flows. Those hold across every scenario combination, tested in code.</p>
-    </div>
-  </div>
-
-  <!-- 07: DOSSIER -->
+  <!-- 02: DOSSIER -->
   <div class="doc-section">
     <span class="section-anchor" id="dossier"></span>
-    <div class="section-num">07</div>
+    <div class="section-num">02</div>
     <h2 class="section-title">Dossier</h2>
     <div class="tool-block-body">
       <p>A listed company's filings already say most of what an analyst wants: how it makes money, who owns it, how it is financed, who it depends on, and what it now warns about that it didn't last year. The trouble is that it's spread over thousands of documents.</p>
@@ -350,10 +278,10 @@
     </div>
   </div>
 
-  <!-- 08: PARCELLE -->
+  <!-- 03: PARCELLE -->
   <div class="doc-section">
     <span class="section-anchor" id="parcelle"></span>
-    <div class="section-num">08</div>
+    <div class="section-num">03</div>
     <h2 class="section-title">Parcelle</h2>
     <div class="tool-block-body">
       <p>Geneva's planning data is public, but it's split across separate SITG layers: cadastre, zoning, building footprints, permits, PLQs, raising-the-roof potential and the OCEN heating index. Building a view of one parcel means opening each of them in turn.</p>
@@ -361,6 +289,48 @@
       <p>Parcelle queries those layers live from the canton's services and shows them together for each parcel, with a link to the official RDPPF extract and to any PLQ document. The scan tool screens a commune by zone, plot size and how much of the permitted volume is already built, and exports the shortlist to CSV.</p>
 
       <p>Every figure shows where it came from. Where something is inferred, such as commune rent levels or a price index modelled from tax data, it's labelled as such, and the data tab lists which public sources are connected and which aren't yet. Owner identity is left out on purpose. There's no AI here: it's a screening tool, and deciding what a parcel is worth stays with the analyst.</p>
+    </div>
+  </div>
+
+  <!-- 04: LINEAGE -->
+  <div class="doc-section">
+    <span class="section-anchor" id="lineage"></span>
+    <div class="section-num">04</div>
+    <h2 class="section-title">Lineage</h2>
+    <div class="tool-block-body">
+      <p>Who actually owns an asset in a family structure is a product of percentages along a chain: a trust, a holding company, a subsidiary, an SPV. The org chart shows the boxes and leaves the multiplication to the reader.</p>
+
+      <p>Lineage draws a fictional Geneva family, the same one as in Orrery, as an engraved holding structure. Select any asset and its chain to the ultimate owners lights up, with each owner's effective share; select a person to see everything they have an interest in. Succession, a buy-out and a property sale can be run on top, separately or together.</p>
+
+      <p>The checks matter more than the drawing here. Effective shares along every path must sum to 100%, value must be conserved at every node, and after any scenario the family's wealth must equal what it was plus the explicit flows. Those hold across every scenario combination, tested in code.</p>
+    </div>
+  </div>
+
+  <!-- 05: CORRIDOR -->
+  <div class="doc-section">
+    <span class="section-anchor" id="corridor"></span>
+    <div class="section-num">05</div>
+    <h2 class="section-title">Corridor</h2>
+    <div class="tool-block-body">
+      <p>Ask how much logistics stock sits around Venlo and you usually get a broker's estimate, rounded and a quarter old. The Dutch building register already holds the answer for every building, with its real outline and construction year.</p>
+
+      <p>Corridor draws every building in the register of at least 5,000 m² with an industrial unit, 8,814 of them, extruded in 3D over a night map of the Netherlands. Heights come from the national lidar survey where it can measure the roof, and are marked as assumed where it can't. Drop a catchment anywhere and the panel gives the count, total footprint, median size, age profile and the share built since 2015; scrub the years and watch the box boom of the 2000s and 2010s rise.</p>
+
+      <p>The hard part was deciding what not to count. The register's industrial use also covers farming, so 1,523 glasshouses are screened out using the national topographic map and the lidar roof height. Footprint is labelled footprint, not lettable area. There's no AI here: it's a register, drawn properly.</p>
+    </div>
+  </div>
+
+  <!-- 06: ORRERY -->
+  <div class="doc-section">
+    <span class="section-anchor" id="orrery"></span>
+    <div class="section-num">06</div>
+    <h2 class="section-title">Orrery</h2>
+    <div class="tool-block-body">
+      <p>A family office's private-markets programme is a set of commitments made over many years, each calling and returning cash on its own timetable. The usual report is a table, which tells you the totals and hides the shape.</p>
+
+      <p>Orrery draws the programme of a fictional Geneva family as an engraved orrery: one ring per vintage, one sector per strategy, each fund a planet sized to its NAV with a dashed ring for what is still to be called. Below it, the cumulative cash-flow tide shows the J-curve and a low, base and high forecast. Click a fund for its metrics, cash flows and look-through holdings.</p>
+
+      <p>The funds are illustrative, but nothing on the screen is typed in. IRR is computed from dated cash flows, TVPI is distributions plus NAV over paid-in, and the NAV roll-forward has to hold every quarter. Exchange rates are the real ECB fixes. Those identities are tested in code, because a sharp reader will check whether the IRR fits the multiple.</p>
     </div>
   </div>
 
