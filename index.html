@@ -533,6 +533,69 @@
     .note-link .arr { font-size: 14px; transition: transform 0.3s var(--ease-out); }
     .note-link:hover .arr { transform: translateX(4px); }
 
+    /* Work / Personal switch, in both list headers (scrolls between the two chapters) */
+    .mode-switch { display: inline-flex; margin-left: 8px; border: 1px solid var(--hairline); }
+    .mode-switch a {
+      font-size: 10px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
+      padding: 6px 11px 5px; color: var(--ink-soft); text-decoration: none;
+      transition: color 0.25s, box-shadow 0.25s;
+    }
+    .mode-switch a:hover { color: var(--navy); }
+    .mode-switch a[aria-current="true"] { color: var(--navy); box-shadow: inset 0 -2px 0 var(--signal); }
+
+    /* ============================================================
+       PERSONAL — second chapter. A terracotta interlude pins, then
+       clay paper rides over it: the same index, in warm ink.
+       ============================================================ */
+    :root {
+      --terra: #C1643C;
+      --clay: #F6ECE2;
+      --umber: #3A2A23;
+      --umber-soft: #8A7365;
+      --umber-12: rgba(58, 42, 35, 0.12);
+      --umber-30: rgba(58, 42, 35, 0.30);
+    }
+    .pchap { position: relative; }
+    #pwipe {
+      position: sticky; top: 0;
+      height: 100vh; height: 100svh;
+      background: var(--terra);
+      overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+    #pwipe .wipe-word { color: rgba(246, 236, 226, 0.13); }
+    #pwipe .wipe-meta, #pwipe .wipe-meta-r { color: rgba(246, 236, 226, 0.62); }
+    .pover { position: relative; z-index: 2; background: var(--clay); }
+    #personal { background: var(--clay); padding: 110px 0 120px; min-height: 100vh; min-height: 100svh; }
+    #personal .section-label { color: var(--umber-soft); margin-bottom: 14px; }
+    #personal .section-label .lbl-rule { background: var(--umber-12); }
+    #personal .section-label .lbl-idx { color: var(--terra); }
+    #personal .mode-switch { border-color: var(--umber-12); }
+    #personal .mode-switch a { color: var(--umber-soft); }
+    #personal .mode-switch a:hover { color: var(--umber); }
+    #personal .mode-switch a[aria-current="true"] { color: var(--umber); box-shadow: inset 0 -2px 0 var(--terra); }
+    .personal-intro { font-size: 15px; line-height: 1.7; color: var(--umber-soft); max-width: 560px; margin: 30px 0 34px; }
+    #personal .tools-list > .tool-item:first-child .tool-rule { display: block; }
+    #personal .tool-rule, #personal .tool-item:last-of-type::after { background: var(--umber-12); }
+    #personal .tool-num { color: rgba(193, 100, 60, 0.22); }
+    #personal .tool-item:hover .tool-num { color: var(--terra); }
+    #personal .tool-name { color: var(--umber); }
+    #personal .tool-tag { color: var(--umber-soft); border-color: var(--umber-12); }
+    #personal .tool-status-live { color: var(--umber); }
+    @keyframes live-pulse-warm {
+      0%   { box-shadow: 0 0 0 0 rgba(193, 100, 60, 0.45); }
+      70%  { box-shadow: 0 0 0 6px rgba(193, 100, 60, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(193, 100, 60, 0); }
+    }
+    #personal .tool-status-live::before { background: var(--terra); animation-name: live-pulse-warm; }
+    #personal .tool-arrow { color: var(--umber-30); }
+    #personal .tool-item:hover .tool-arrow { color: var(--terra); }
+    #personal .tool-desc { color: var(--umber-soft); }
+    .tool-pic { display: none; }
+    /* the cursor preview turns warm over personal rows, and shows photos */
+    #preview.warm { border-color: var(--umber); background: var(--clay); }
+    #preview .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
     /* ============================================================
        CONTACT
        ============================================================ */
@@ -636,7 +699,7 @@
       .apex-pulse { animation: none; }
       #preloader { display: none; }
       html.is-loading body { overflow: auto; }
-      #hero, #wipe { position: relative; }
+      #hero, #wipe, #pwipe { position: relative; }
       .tool-desc-wrap { max-height: none; opacity: 1; }
       * { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
     }
@@ -672,6 +735,14 @@
       .tools-list:has(.tool-item:hover) .tool-item:not(:hover) { opacity: 1; }
       .tool-item:hover .tool-name { transform: none; }
       #preview { display: none; }
+      #personal { padding: 80px 0 90px; }
+      #personal .tool-num { color: var(--terra); }
+      .personal-intro { margin: 22px 0 26px; }
+      .mode-switch a { padding: 6px 9px 5px; }
+      #personal .tool-pic {
+        display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover;
+        margin-top: 16px; border: 1px solid var(--umber-12);
+      }
       #contact { padding: 90px 0 80px; }
       .contact-copy { margin-bottom: 52px; }
       .footer-row { flex-direction: column; gap: 8px; text-align: center; }
@@ -798,6 +869,10 @@
       <div class="container">
         <div class="section-label anim-fade" data-reveal>
           <span>Tools</span><span class="lbl-rule" data-rule></span><span class="lbl-idx">06</span>
+          <nav class="mode-switch" aria-label="Work or personal projects">
+            <a href="#tools" data-scroll-to data-hover aria-current="true">Work</a>
+            <a href="#personal" data-scroll-to data-hover>Personal</a>
+          </nav>
         </div>
 
         <div class="tools-list" id="toolsList">
@@ -912,6 +987,86 @@
       </div>
     </section>
 
+    <!-- PERSONAL — second chapter: a terracotta interlude pins, the clay list rides over it.
+         A project is an <a class="tool-item" data-thumb="N"> whose N matches a .thumb in #preview. -->
+    <div class="pchap">
+      <section id="pwipe" aria-hidden="true">
+        <div class="wipe-word" id="pwipeWord">Personal</div>
+        <div class="wipe-meta">Built with Claude, outside work</div>
+        <div class="wipe-meta-r">01 — 03</div>
+      </section>
+
+      <div class="pover">
+        <section id="personal">
+          <div class="container">
+            <div class="section-label anim-fade" data-reveal>
+              <span>Personal</span><span class="lbl-rule" data-rule></span><span class="lbl-idx">03</span>
+              <nav class="mode-switch" aria-label="Work or personal projects">
+                <a href="#tools" data-scroll-to data-hover>Work</a>
+                <a href="#personal" data-scroll-to data-hover aria-current="true">Personal</a>
+              </nav>
+            </div>
+            <p class="personal-intro anim-fade" data-reveal>Things I build with Claude outside work: a house, a piece of furniture and a small game. Each one runs in the browser.</p>
+
+            <div class="tools-list" id="personalList">
+
+              <a href="/gordes-house/" target="_blank" rel="noopener" class="tool-item" data-hover data-thumb="6">
+                <span class="tool-rule" data-rule></span>
+                <div class="tool-row anim-fade" data-reveal>
+                  <span class="tool-num">01</span>
+                  <span class="tool-name">Gordes House</span>
+                  <span class="tool-right">
+                    <span class="tool-tag">3D · Architecture</span>
+                    <span class="tool-status-live">Live</span>
+                    <span class="tool-arrow">→</span>
+                  </span>
+                </div>
+                <div class="tool-desc-wrap">
+                  <div class="tool-desc">A Provençal house rebuilt in 3D from the architect's plans and drone photos: lift the floors, x-ray the walls and move the sun through the day.</div>
+                  <img class="tool-pic" src="personal/gordes-house.jpg" alt="3D model of a stone house with terraces, a pool and olive trees" width="600" height="400" loading="lazy"/>
+                </div>
+              </a>
+
+              <a href="/arve-desk-cabinet/" target="_blank" rel="noopener" class="tool-item" data-hover data-thumb="7">
+                <span class="tool-rule" data-rule></span>
+                <div class="tool-row anim-fade" data-reveal>
+                  <span class="tool-num">02</span>
+                  <span class="tool-name">Arve Desk Cabinet</span>
+                  <span class="tool-right">
+                    <span class="tool-tag">3D · Furniture</span>
+                    <span class="tool-status-live">Live</span>
+                    <span class="tool-arrow">→</span>
+                  </span>
+                </div>
+                <div class="tool-desc-wrap">
+                  <div class="tool-desc">A fold-out home office in Swiss stone pine, rebuilt in 3D from six showroom photos.</div>
+                  <img class="tool-pic" src="personal/arve-desk-cabinet.jpg" alt="3D model of an open stone pine desk cabinet with shelves in its two side wings" width="600" height="400" loading="lazy"/>
+                </div>
+              </a>
+
+              <a href="/glass-dunes/" target="_blank" rel="noopener" class="tool-item" data-hover data-thumb="8">
+                <span class="tool-rule" data-rule></span>
+                <div class="tool-row anim-fade" data-reveal>
+                  <span class="tool-num">03</span>
+                  <span class="tool-name">Glass Dunes</span>
+                  <span class="tool-right">
+                    <span class="tool-tag">Browser game</span>
+                    <span class="tool-status-live">Live</span>
+                    <span class="tool-arrow">→</span>
+                  </span>
+                </div>
+                <div class="tool-desc-wrap">
+                  <div class="tool-desc">A three-minute hoverbike ride at the edge of the day: hand-inked look, procedural world and sound, under 60 KB.</div>
+                  <img class="tool-pic" src="personal/glass-dunes.jpg" alt="Title card of Glass Dunes over a pastel desert with rock towers" width="600" height="400" loading="lazy"/>
+                </div>
+              </a>
+
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
     <!-- floating preview panel (desktop) -->
     <div id="preview" aria-hidden="true">
       <!-- 01 Dossier: exploded plate stack, plate index -->
@@ -1015,6 +1170,10 @@
           <text x="20" y="186" font-family="DM Sans, sans-serif" font-size="9" letter-spacing="2" fill="#FAFAF8" opacity="0.45">SIGNALS · BEFORE EARNINGS</text>
         </svg>
       </div>
+      <!-- Personal 01–03: photos of each page (the panel turns warm over personal rows) -->
+      <div class="thumb" data-i="6"><img src="personal/gordes-house.jpg" alt=""/></div>
+      <div class="thumb" data-i="7"><img src="personal/arve-desk-cabinet.jpg" alt=""/></div>
+      <div class="thumb" data-i="8"><img src="personal/glass-dunes.jpg" alt=""/></div>
     </div>
 
     <!-- CONTACT -->
@@ -1260,6 +1419,12 @@
         scrub: true
       }
     });
+  gsap.fromTo('#pwipeWord',
+    { yPercent: 36, opacity: 0.55 },
+    {
+      yPercent: -22, opacity: 1, ease: 'none',
+      scrollTrigger: { trigger: '#pwipe', start: 'top bottom', end: 'bottom top', scrub: true }
+    });
 
   /* ----------------------------------------------------------
      SCROLL ENTRANCES — rules draw, content rises. once only.
@@ -1305,6 +1470,7 @@
       item.addEventListener('mouseenter', function () {
         var i = item.getAttribute('data-thumb');
         thumbs.forEach(function (t) { t.classList.toggle('active', t.getAttribute('data-i') === i); });
+        preview.classList.toggle('warm', !!item.closest('#personal'));
         if (!pvVisible) {
           pvVisible = true;
           gsap.to(preview, { opacity: 1, scale: 1, duration: 0.4, ease: 'expo.out', overwrite: 'auto' });
@@ -1333,6 +1499,7 @@
       } else {
         var i = over.getAttribute('data-thumb');
         thumbs.forEach(function (t) { t.classList.toggle('active', t.getAttribute('data-i') === i); });
+        preview.classList.toggle('warm', !!over.closest('#personal'));
       }
     }
     window.addEventListener('scroll', function () {
