@@ -397,6 +397,8 @@
       background: var(--navy-12);
       transform: scaleX(0); transform-origin: left;
     }
+    /* the "Tools" label already draws a rule just above the first row: don't double it */
+    .tools-list > .tool-item:first-child .tool-rule { display: none; }
     .tool-item:last-of-type::after {
       content: '';
       position: absolute; bottom: 0; left: 0;
@@ -784,8 +786,8 @@
   <!-- WIPE — navy interlude, pinned, tools rides over it -->
   <section id="wipe" aria-hidden="true">
     <div class="wipe-word" id="wipeWord">Tools</div>
-    <div class="wipe-meta">Five live builds</div>
-    <div class="wipe-meta-r">01 — 05</div>
+    <div class="wipe-meta">Six live builds</div>
+    <div class="wipe-meta-r">01 — 06</div>
   </section>
 
   <div class="over2">
@@ -794,7 +796,7 @@
     <section id="tools">
       <div class="container">
         <div class="section-label anim-fade" data-reveal>
-          <span>Tools</span><span class="lbl-rule" data-rule></span><span class="lbl-idx">05</span>
+          <span>Tools</span><span class="lbl-rule" data-rule></span><span class="lbl-idx">06</span>
         </div>
 
         <div class="tools-list" id="toolsList">
@@ -879,6 +881,22 @@
             </div>
             <div class="tool-desc-wrap">
               <div class="tool-desc">A family office's private-markets programme as an engraved orrery: vintages, strategies, NAV and unfunded commitments, with the cash-flow J-curve and a forecast.</div>
+            </div>
+          </a>
+
+          <a href="https://signals-olive-xi.vercel.app/" target="_blank" rel="noopener" class="tool-item" data-hover data-thumb="5">
+            <span class="tool-rule" data-rule></span>
+            <div class="tool-row anim-fade" data-reveal>
+              <span class="tool-num">06</span>
+              <span class="tool-name">Signals</span>
+              <span class="tool-right">
+                <span class="tool-tag">Alternative Data</span>
+                <span class="tool-status-live">Live</span>
+                <span class="tool-arrow">→</span>
+              </span>
+            </div>
+            <div class="tool-desc-wrap">
+              <div class="tool-desc">Free public data that moves before eight companies report (Taiwanese supplier sales, car registrations, every US flight, refining margins), mapped to its sources and scored against a naive forecast.</div>
             </div>
           </a>
 
@@ -972,6 +990,28 @@
           <circle cx="182" cy="74" r="10" fill="none" stroke="#FAFAF8" stroke-opacity="0.6" stroke-dasharray="2 2"/>
           <circle cx="210" cy="96" r="5" fill="#D52B1E"/>
           <text x="20" y="186" font-family="DM Sans, sans-serif" font-size="9" letter-spacing="2" fill="#FAFAF8" opacity="0.45">ORRERY · PRIVATE MARKETS</text>
+        </svg>
+      </div>
+      <!-- 06 Signals: threads from scattered sources into one point, a survey staff with the reading needle -->
+      <div class="thumb" data-i="5">
+        <svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+          <rect width="300" height="200" fill="#0F2744"/>
+          <g fill="none" stroke="#FAFAF8" stroke-opacity="0.4" stroke-width="0.75">
+            <path d="M40,44 Q110,40 150,86"/><path d="M62,98 Q110,80 150,86"/><path d="M252,38 Q200,44 150,86"/>
+            <path d="M262,92 Q210,74 150,86"/><path d="M96,24 Q130,40 150,86"/><path d="M212,20 Q170,40 150,86"/>
+          </g>
+          <g fill="#FAFAF8" opacity="0.8"><circle cx="40" cy="44" r="2.5"/><circle cx="62" cy="98" r="2"/><circle cx="252" cy="38" r="2.5"/><circle cx="262" cy="92" r="2"/><circle cx="96" cy="24" r="2"/><circle cx="212" cy="20" r="2"/></g>
+          <circle cx="150" cy="86" r="4" fill="none" stroke="#FAFAF8" stroke-opacity="0.8"/>
+          <line x1="40" y1="140" x2="260" y2="140" stroke="#FAFAF8" stroke-opacity="0.5" stroke-width="1"/>
+          <g stroke="#FAFAF8" stroke-opacity="0.45" stroke-width="0.75">
+            <line x1="40" y1="136" x2="40" y2="144"/><line x1="62" y1="138" x2="62" y2="142"/><line x1="84" y1="138" x2="84" y2="142"/><line x1="106" y1="138" x2="106" y2="142"/>
+            <line x1="128" y1="136" x2="128" y2="144"/><line x1="150" y1="138" x2="150" y2="142"/><line x1="172" y1="138" x2="172" y2="142"/><line x1="194" y1="138" x2="194" y2="142"/>
+            <line x1="216" y1="136" x2="216" y2="144"/><line x1="238" y1="138" x2="238" y2="142"/><line x1="260" y1="136" x2="260" y2="144"/>
+          </g>
+          <rect x="168" y="134" width="40" height="12" fill="#FAFAF8" opacity="0.12"/>
+          <line x1="188" y1="124" x2="188" y2="152" stroke="#D52B1E" stroke-width="1.5"/>
+          <path d="M184,124 L192,124 L188,130 Z" fill="#D52B1E"/>
+          <text x="20" y="186" font-family="DM Sans, sans-serif" font-size="9" letter-spacing="2" fill="#FAFAF8" opacity="0.45">SIGNALS · BEFORE EARNINGS</text>
         </svg>
       </div>
     </div>

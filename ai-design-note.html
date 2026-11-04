@@ -232,6 +232,7 @@
       <li><span class="toc-num">04</span><a href="#lineage">Lineage</a></li>
       <li><span class="toc-num">05</span><a href="#corridor">Corridor</a></li>
       <li><span class="toc-num">06</span><a href="#orrery">Orrery</a></li>
+      <li><span class="toc-num">07</span><a href="#signals">Signals</a></li>
     </ul>
   </div>
 
@@ -246,7 +247,7 @@
         <p>I only let a model do work where I'd spot the mistake myself.</p>
       </div>
 
-      <p>I built these tools in 2026 while working as an investment analyst on a pan-European logistics fund. Each one answers a question I keep asking at work, and each is built around one drawing that answers it faster than a table could: what a listed company's own filings say about it, who really owns an asset at the end of a chain of holding companies, how much logistics stock sits in a catchment, what a family's private-markets programme is worth and when it will be called.</p>
+      <p>I built these tools in 2026 while working as an investment analyst on a pan-European logistics fund. Each one answers a question I keep asking at work, and each is built around one drawing that answers it faster than a table could: what a listed company's own filings say about it, who really owns an asset at the end of a chain of holding companies, how much logistics stock sits in a catchment, what a family's private-markets programme is worth and when it will be called, what public data says about a quarter before the company reports it.</p>
 
       <p>My rule for where AI goes is simple. If a step needs judgement, the analyst keeps it. If a step is mostly copying, reformatting or translating, a model can take the first pass, provided the result is quick to check against the source. In practice that means extraction and first drafts, and never the valuation call or the investment conclusion.</p>
 
@@ -331,6 +332,20 @@
       <p>Orrery draws the programme of a fictional Geneva family as an engraved orrery: one ring per vintage, one sector per strategy, each fund a planet sized to its NAV with a dashed ring for what is still to be called. Below it, the cumulative cash-flow tide shows the J-curve and a low, base and high forecast. Click a fund for its metrics, cash flows and look-through holdings.</p>
 
       <p>The funds are illustrative, but nothing on the screen is typed in. IRR is computed from dated cash flows, TVPI is distributions plus NAV over paid-in, and the NAV roll-forward has to hold every quarter. Exchange rates are the real ECB fixes. Those identities are tested in code, because a sharp reader will check whether the IRR fits the multiple.</p>
+    </div>
+  </div>
+
+  <!-- 07: SIGNALS -->
+  <div class="doc-section">
+    <span class="section-anchor" id="signals"></span>
+    <div class="section-num">07</div>
+    <h2 class="section-title">Signals</h2>
+    <div class="tool-block-body">
+      <p>Hedge funds pay for data that shows a quarter before the company reports it. More of it is free and official than people think: Taiwanese suppliers publish their sales every month, the Dutch and German registers count every new car, the US government publishes every domestic flight, and the energy agency prices refined products every day.</p>
+
+      <p>Signals collects that data for eight companies (NVIDIA, Apple, Tesla, Amazon, Delta, United, Valero and Marathon Petroleum), maps where it comes from, and turns it into a reading for the quarter in progress. Each reading is a walk-forward test: for every past quarter the model is fitted only on earlier quarters, given only the data that was public on that quarter's report day, and compared with a naive forecast, last quarter's growth.</p>
+
+      <p>The record is the point. The refining margin works for Valero and Marathon, Taiwanese suppliers for Apple and, on a shorter record, European registrations for Tesla. For NVIDIA no free signal beats its own guidance plus its usual beat, and for Delta nothing beats the naive forecast; the app says so rather than show a number it can't stand behind. One idea I tested, that TSMC's sales lead NVIDIA's by a quarter, wasn't borne out and stays out of the model. There's no AI in the readings: every number is arithmetic on public data, checked against its source.</p>
     </div>
   </div>
 
