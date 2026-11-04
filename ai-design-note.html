@@ -231,7 +231,7 @@
       <li><span class="toc-num">03</span><a href="#parcelle">Parcelle</a></li>
       <li><span class="toc-num">04</span><a href="#lineage">Lineage</a></li>
       <li><span class="toc-num">05</span><a href="#corridor">Corridor</a></li>
-      <li><span class="toc-num">06</span><a href="#orrery">Orrery</a></li>
+      <li><span class="toc-num">06</span><a href="#vintage">Vintage</a></li>
       <li><span class="toc-num">07</span><a href="#signals">Signals</a></li>
     </ul>
   </div>
@@ -259,7 +259,7 @@
 
       <div class="demo-note">
         <div class="demo-note-label">How to read the numbers</div>
-        <p>Every figure carries a small tag: SRC for a value taken from its source, CALC for one computed in code from real data, ILL for illustrative data made up for the demo. Click it to see the source, the date and how it was computed. Real data comes from public sources through nightly or periodic snapshots: the Dutch building register, the ECB and the SEC. The family office in Orrery and Lineage is fictional, and labelled so on screen.</p>
+        <p>Every figure carries a small tag: SRC for a value taken from its source, CALC for one computed in code from real data, ILL for illustrative data made up for the demo. Click it to see the source, the date and how it was computed. Real data comes from public sources through nightly or periodic snapshots: the Dutch building register, the ECB and the SEC. The family office in Vintage and Lineage is fictional, and labelled so on screen.</p>
       </div>
 
     </div>
@@ -301,7 +301,7 @@
     <div class="tool-block-body">
       <p>Who actually owns an asset in a family structure is a product of percentages along a chain: a trust, a holding company, a subsidiary, an SPV. The org chart shows the boxes and leaves the multiplication to the reader.</p>
 
-      <p>Lineage draws a fictional Geneva family, the same one as in Orrery, as an engraved holding structure. Select any asset and its chain to the ultimate owners lights up, with each owner's effective share; select a person to see everything they have an interest in. Succession, a buy-out and a property sale can be run on top, separately or together.</p>
+      <p>Lineage draws a fictional Geneva family, the same one as in Vintage, as an engraved holding structure. Select any asset and its chain to the ultimate owners lights up, with each owner's effective share; select a person to see everything they have an interest in. Succession, a buy-out and a property sale can be run on top, separately or together.</p>
 
       <p>The checks matter more than the drawing here. Effective shares along every path must sum to 100%, value must be conserved at every node, and after any scenario the family's wealth must equal what it was plus the explicit flows. Those hold across every scenario combination, tested in code.</p>
     </div>
@@ -315,21 +315,21 @@
     <div class="tool-block-body">
       <p>Ask how much logistics stock sits around Venlo and you usually get a broker's estimate, rounded and a quarter old. The Dutch building register already holds the answer for every building, with its real outline and construction year.</p>
 
-      <p>Corridor draws every building in the register of at least 5,000 m² with an industrial unit, 8,814 of them, extruded in 3D over a night map of the Netherlands. Heights come from the national lidar survey where it can measure the roof, and are marked as assumed where it can't. Drop a catchment anywhere and the panel gives the count, total footprint, median size, age profile and the share built since 2015; scrub the years and watch the box boom of the 2000s and 2010s rise.</p>
+      <p>Corridor draws every building in the register of at least 5,000 m² with an industrial unit, 8,814 of them, extruded in 3D over a paper map of the Netherlands. Heights come from the national lidar survey where it can measure the roof, and are marked as assumed where it can't. Drop a catchment anywhere and the panel gives the count, total footprint, median size, age profile and the share built since 2015; scrub the years and watch the box boom of the 2000s and 2010s rise.</p>
 
       <p>The hard part was deciding what not to count. The register's industrial use also covers farming, so 1,523 glasshouses are screened out using the national topographic map and the lidar roof height. Footprint is labelled footprint, not lettable area. There's no AI here: it's a register, drawn properly.</p>
     </div>
   </div>
 
-  <!-- 06: ORRERY -->
+  <!-- 06: VINTAGE -->
   <div class="doc-section">
-    <span class="section-anchor" id="orrery"></span>
+    <span class="section-anchor" id="vintage"></span>
     <div class="section-num">06</div>
-    <h2 class="section-title">Orrery</h2>
+    <h2 class="section-title">Vintage</h2>
     <div class="tool-block-body">
       <p>A family office's private-markets programme is a set of commitments made over many years, each calling and returning cash on its own timetable. The usual report is a table, which tells you the totals and hides the shape.</p>
 
-      <p>Orrery draws the programme of a fictional Geneva family as an engraved orrery: one ring per vintage, one sector per strategy, each fund a planet sized to its NAV with a dashed ring for what is still to be called. Below it, the cumulative cash-flow tide shows the J-curve and a low, base and high forecast. Click a fund for its metrics, cash flows and look-through holdings.</p>
+      <p>Vintage draws the programme of a fictional Geneva family like an orrery, the old clockwork model of the planets: one ring per vintage, one sector per strategy, each fund a planet sized to its NAV with a dashed ring for what is still to be called. Below it, the cumulative cash-flow tide shows the J-curve and a low, base and high forecast. Click a fund for its metrics, cash flows and look-through holdings.</p>
 
       <p>The funds are illustrative, but nothing on the screen is typed in. IRR is computed from dated cash flows, TVPI is distributions plus NAV over paid-in, and the NAV roll-forward has to hold every quarter. Exchange rates are the real ECB fixes. Those identities are tested in code, because a sharp reader will check whether the IRR fits the multiple.</p>
     </div>
