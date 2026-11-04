@@ -1,5 +1,5 @@
-<!doctype html><html><head><meta charset=utf8><title>Gordes House 3D</title><meta name="description" content="A Provençal house rebuilt in 3D from the architect's plans and drone photos: walk round it, lift the floors, x-ray the walls and move the sun."><meta property="og:type" content="website"><meta property="og:url" content="https://portfolio-dusky-sigma-99.vercel.app/gordes-house/"><link rel="canonical" href="https://portfolio-dusky-sigma-99.vercel.app/gordes-house/"><meta property="og:title" content="Gordes House 3D"><meta property="og:description" content="A Provençal house rebuilt in 3D from the architect's plans and drone photos: walk round it, lift the floors, x-ray the walls and move the sun."><meta property="og:image" content="https://portfolio-dusky-sigma-99.vercel.app/gordes-house/og-image.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://portfolio-dusky-sigma-99.vercel.app/gordes-house/og-image.jpg"><link rel="icon" type="image/png" sizes="256x256" href="/favicon.png"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
-<title>Gordes House 3D</title>
+<!doctype html><html><head><meta charset=utf8><title>Provençal House 3D</title><meta name="description" content="A Provençal house rebuilt in 3D from the architect's plans and drone photos: walk round it, lift the floors, x-ray the walls and move the sun."><meta property="og:type" content="website"><meta property="og:url" content="https://portfolio-dusky-sigma-99.vercel.app/provence-house/"><link rel="canonical" href="https://portfolio-dusky-sigma-99.vercel.app/provence-house/"><meta property="og:title" content="Provençal House 3D"><meta property="og:description" content="A Provençal house rebuilt in 3D from the architect's plans and drone photos: walk round it, lift the floors, x-ray the walls and move the sun."><meta property="og:image" content="https://portfolio-dusky-sigma-99.vercel.app/provence-house/og-image.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://portfolio-dusky-sigma-99.vercel.app/provence-house/og-image.jpg"><link rel="icon" type="image/png" sizes="256x256" href="/favicon.png"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Provençal House 3D</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=Hanken+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -73,9 +73,8 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 400 14px/1.45 
 <div id="stage"></div>
 <div id="labels"></div>
 <div id="title" class="panel">
-  <h1>The Gordes house</h1>
+  <h1>A Provençal house</h1>
   <p>3D model built from the 2014 architect's plans, with the garden, walls and pool measured from the July 2020 drone photos. Interiors, furniture and finishes are imagined from the plans.</p>
-  <div class="alt">43.91° N · ground floor 0.00 = 393.30 m</div>
 </div>
 <div id="compass" class="panel" title="North"><svg viewBox="-20 -20 40 40" aria-hidden="true"><g id="needle"><path d="M0,-16 L5,2 L0,-2 L-5,2 Z" fill="#b5523b"/><path d="M0,16 L5,2 L0,-2 L-5,2 Z" fill="currentColor" opacity=".45"/></g></svg></div>
 <nav id="levels" class="panel" aria-label="View and floor">
@@ -157,7 +156,7 @@ const jit = (c, a, r = rnd) => c.map(v => Math.max(0, Math.min(255, v + (r() - .
 const lum = (c, a, r = rnd) => { const k = 1 + (r() - .5) * a; return c.map(v => Math.max(0, Math.min(255, v * k)) | 0); };
 const rgb = (c, a = 1) => `rgba(${c[0] | 0},${c[1] | 0},${c[2] | 0},${a})`;
 function speckle(g, w, h, n, a, base, alpha = .35) { for (let i = 0; i < n; i++) { const c = jit(base, a); g.fillStyle = rgb(c, alpha); g.fillRect(rnd() * w, rnd() * h, 1 + rnd() * 2, 1 + rnd() * 2); } }
-// Gordes dry-stone rubble: irregular coursed limestone, deep shadowed joints (2 m tile)
+// Provençal dry-stone rubble: irregular coursed limestone, deep shadowed joints (2 m tile)
 function periodic(total, gen, r) { const a = []; let s = 0; while (s < total) { const v = gen(); a.push(v); s += v; } const k = total / s; return a.map(v => v * k); }
 const STONE = (() => {
   const W = 1024, S = 2.0, r = prng(3);
@@ -1263,8 +1262,8 @@ scene.fog = new THREE.Fog(0xc9d3d8, 160, 900);
 const pmrem = new THREE.PMREMGenerator(renderer); const envScene = new THREE.Scene(); const sky2 = gradSky(50, 1); envScene.add(sky2);
 const SKYDAY = { top: 0x3f78b8, mid: 0x86b2d6, hor: 0xd5e2ea, low: 0xb9b8a6, glow: 0xfff0d0 }, SKYDUSK = { top: 0x1d2c4c, mid: 0x5f6f8e, hor: 0xe9a66e, low: 0x6e6058, glow: 0xff9a4a }, SKYNIGHT = { top: 0x0a1020, mid: 0x18233a, hor: 0x3a3f52, low: 0x1c1c22, glow: 0x6a4a3a };
 const NA = 19.6 * DEG, NORTH = new V3(-Math.sin(NA), 0, -Math.cos(NA)), EAST = new V3(Math.cos(NA), 0, -Math.sin(NA));
-function sunPos(month, hour) {   // NOAA approximation, Gordes 43.911 N 5.200 E, local time (CEST Apr-Oct)
-  const lat = 43.911 * DEG, lon = 5.2, day = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334][month] + (month === 6 ? 10 : 15);
+function sunPos(month, hour) {   // NOAA approximation for Provence (44° N, 5° E, rounded on purpose), local time (CEST Apr-Oct)
+  const lat = 44 * DEG, lon = 5, day = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334][month] + (month === 6 ? 10 : 15);
   const dst = month >= 3 && month <= 9 ? 2 : 1, g = 2 * Math.PI / 365 * (day - 1 + (hour - dst - 12) / 24);
   const eqt = 229.18 * (.000075 + .001868 * Math.cos(g) - .032077 * Math.sin(g) - .014615 * Math.cos(2 * g) - .040849 * Math.sin(2 * g));
   const dec = .006918 - .399912 * Math.cos(g) + .070257 * Math.sin(g) - .006758 * Math.cos(2 * g) + .000907 * Math.sin(2 * g) - .002697 * Math.cos(3 * g) + .00148 * Math.sin(3 * g);
