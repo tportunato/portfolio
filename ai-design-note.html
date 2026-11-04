@@ -288,9 +288,9 @@
     <div class="tool-block-body">
       <p>Geneva's planning data is public, but it's split across separate SITG layers: cadastre, zoning, building footprints, permits, PLQs, raising-the-roof potential and the OCEN heating index. Building a view of one parcel means opening each of them in turn.</p>
 
-      <p>Parcelle queries those layers live from the canton's services and shows them together for each parcel, with a link to the official RDPPF extract and to any PLQ document. The scan tool screens a commune by zone, plot size and how much of the permitted volume is already built, and exports the shortlist to CSV.</p>
+      <p>Parcelle opens on the Ville de Genève with every parcel drawn like a cadastral plan, queries those layers live from the canton's services and shows them together for each parcel, with a link to the official RDPPF extract and to any PLQ document. The scan tool screens a commune by zone, plot size and how much of the permitted volume is already built, leaves streets and other public land out, and exports the shortlist to CSV.</p>
 
-      <p>Every figure shows where it came from. Where something is inferred, such as commune rent levels or a price index modelled from tax data, it's labelled as such, and the data tab lists which public sources are connected and which aren't yet. Owner identity is left out on purpose. There's no AI here: it's a screening tool, and deciding what a parcel is worth stays with the analyst.</p>
+      <p>Every figure shows where it came from. Where something is inferred, such as commune rent levels, it's labelled as such; figures that couldn't be traced to a source were taken out. The data tab tests every public source live. Owner identity is left out on purpose. There's no AI here: it's a screening tool, and deciding what a parcel is worth stays with the analyst.</p>
     </div>
   </div>
 
@@ -344,7 +344,7 @@
     <div class="tool-block-body">
       <p>Hedge funds pay for data that shows a quarter before the company reports it. More of it is free and official than people think: Taiwanese suppliers publish their sales every month, the Dutch and German registers count every new car, the US government publishes every domestic flight, and the energy agency prices refined products every day.</p>
 
-      <p>Signals collects that data for eight companies (NVIDIA, Apple, Tesla, Amazon, Delta, United, Valero and Marathon Petroleum), maps where it comes from, and turns it into a reading for the quarter in progress. Each reading is a walk-forward test: for every past quarter the model is fitted only on earlier quarters, given only the data that was public on that quarter's report day, and compared with a naive forecast, last quarter's growth.</p>
+      <p>Signals collects that data for eight companies (NVIDIA, Apple, Tesla, Amazon, Delta, United, Valero and Marathon Petroleum), maps where it comes from, and turns it into a reading for the quarter in progress. Each reading is a walk-forward test: for every past quarter the model is fitted only on earlier quarters, given only the data that was public on that quarter's report day, and compared with a naive forecast, last quarter's growth. Each company page opens on the call: the figure expected for the quarter, which sources are running ahead of last quarter and which behind, and how well the method has done.</p>
 
       <p>The record is the point. The refining margin works for Valero and Marathon, Taiwanese suppliers for Apple and, on a shorter record, European registrations for Tesla. For NVIDIA no free signal beats its own guidance plus its usual beat, and for Delta nothing beats the naive forecast; the app says so rather than show a number it can't stand behind. One idea I tested, that TSMC's sales lead NVIDIA's by a quarter, wasn't borne out and stays out of the model. There's no AI in the readings: every number is arithmetic on public data, checked against its source.</p>
     </div>
