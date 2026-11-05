@@ -6,7 +6,7 @@
   <title>AI Design Note · Tomaso Portunato</title>
   <link rel="icon" type="image/png" sizes="256x256" href="favicon.png"/>
   <link rel="icon" type="image/svg+xml" href="favicon.svg"/>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
@@ -159,6 +159,24 @@
       font-size: 12px; color: #888888; line-height: 1.65; margin: 0;
     }
 
+    /* ── BUILD NOTE ── */
+    .build-note { margin-top: 26px; border-top: 0.5px solid #E8E5DE; }
+    .build-note-label {
+      font-family: 'DM Mono', ui-monospace, monospace;
+      font-size: 10px; font-weight: 500; letter-spacing: 0.12em;
+      color: #aaaaaa; text-transform: uppercase; padding: 14px 0 4px;
+    }
+    .build-note dl { margin: 0; }
+    .bn-row { display: grid; grid-template-columns: 88px 1fr; gap: 16px; padding: 8px 0; border-bottom: 0.5px solid #F0EEE9; }
+    .bn-row dt {
+      font-family: 'DM Mono', ui-monospace, monospace;
+      font-size: 10px; font-weight: 500; letter-spacing: 0.12em;
+      color: #0F2744; text-transform: uppercase; padding-top: 3px;
+    }
+    .bn-row dd { margin: 0; font-size: 12.5px; line-height: 1.65; color: #666666; }
+    html:not([lang="fr"]) .fr-only { display: none; }
+    @media (max-width: 640px) { .bn-row { grid-template-columns: 1fr; gap: 2px; } .nav-label { display: none; } }
+
     /* ── CLOSING ── */
     .closing-rule {
       border-top: 0.5px solid #E8E5DE;
@@ -221,6 +239,11 @@
       <span class="doc-meta-label">Updated</span>
       <span class="doc-meta-value">November 2026</span>
     </div>
+    <div class="doc-meta-sep fr-only"></div>
+    <div class="doc-meta-item fr-only">
+      <span class="doc-meta-label">Translation</span>
+      <span class="doc-meta-value">Claude</span>
+    </div>
   </div>
 
   <!-- TOC -->
@@ -248,6 +271,8 @@
 
       <p>My rule for where AI goes is simple. If a step needs judgement, the analyst keeps it. If a step is mostly copying, reformatting or translating, a model can take the first pass, provided the result is quick to check against the source. In practice that means extraction and first drafts, and never the valuation call or the investment conclusion.</p>
 
+      <p>I build them with Claude Code, Anthropic's coding agent, and it wrote almost all of the code. My part is the question each tool answers, the data it may use, the definitions and the rules every number has to follow; the code and its checks are written to those rules, and nothing goes live until I've been through it. Each tool below ends with a build note: the rules, the checks and when they last passed, what they caught, and what the tool still can't do.</p>
+
       <p>The risk I worry about most is people using these models for work they couldn't do without them. The output reads well, so errors last longer than they should.</p>
 
       <p>No tool calls a model while you use it, and none shows text a model would have written. The finance is computed in code from the underlying data: IRR from dated cash flows, effective ownership along the chain, segments that reconcile to the reported totals. The one place a model works is in building Dossier, where it reads company filings and every quote it returns is checked word for word against the filing before it can appear.</p>
@@ -272,7 +297,18 @@
 
       <p>Dossier draws NVIDIA, Tesla, Apple and Amazon as survey atlases of nine plates each: segments as an exploded stack, ownership rings, the board and pay, the debt maturity wall, a network of customers and suppliers, the share price with every filing on it, a redline of the risk factors year on year, and the company's physical footprint. Every figure links to the SEC filing it came from.</p>
 
-      <p>This is the one place a model works. Customers, suppliers, related parties, covenants and risk changes sit in the text of the filings, so the AI coding assistant I build with read them during the build and wrote each fact with its verbatim quote. A script then rejects any quote that isn't word for word in the downloaded filing, and a claim that a risk is new has to agree with the year-on-year diff. 109 facts passed. The site itself never calls a model.</p>
+      <p>This is the one place a model works. Customers, suppliers, related parties, covenants and risk changes sit in the text of the filings, so Claude Code read them during the build and wrote each fact with its verbatim quote. A script then rejects any quote that isn't word for word in the downloaded filing, and a claim that a risk is new has to agree with the year-on-year diff. 109 facts passed. The site itself never calls a model.</p>
+      <div class="build-note">
+        <div class="build-note-label">Build note</div>
+        <dl>
+          <div class="bn-row"><dt>Built</dt><dd>Claude Code with Claude Opus 5.5, November 2026.</dd></div>
+          <div class="bn-row"><dt>Rules</dt><dd>Figures come from SEC data only. A fact from the text needs a quote found word for word in its filing, and a risk described as new must appear as added in the year-on-year comparison.</dd></div>
+          <div class="bn-row"><dt>Checks</dt><dd>107 tests pass: XBRL hygiene, segment and debt-ladder identities, share splits, ownership at most 100%, quotes against claims. 109 quotes found word for word (NVIDIA 35, Tesla 27, Apple 21, Amazon 26), none rejected. Last run 5 November 2026.</dd></div>
+          <div class="bn-row"><dt>Caught</dt><dd>A fact about India's tax on Amazon's cloud fees was dated to the wrong year; the year-on-year check flagged it and the quote was traced back to the FY2022 10-K. NVIDIA's 10-K figure for cash and securities included $12.9bn of equity holdings; the atlas uses NVIDIA's later debt-only subtotal and says so.</dd></div>
+          <div class="bn-row"><dt>Limits</dt><dd>Share prices come from Yahoo, an unofficial source, and are labelled so. Apple's officers are read from Form 4 titles, Tesla's debt ladder starts in FY2019 and locations are city level.</dd></div>
+          <div class="bn-row"><dt>Data</dt><dd>SEC EDGAR filings, XBRL, Forms 3, 4 and 5 and 13F data sets, snapshot of 3 November 2026.</dd></div>
+        </dl>
+      </div>
     </div>
   </div>
 
@@ -287,6 +323,17 @@
       <p>Parcelle opens on the Ville de Genève with every parcel drawn like a cadastral plan, queries those layers live from the canton's services and shows them together for each parcel, with a link to the official RDPPF extract and to any PLQ document. The scan tool screens a commune by zone, plot size and how much of the permitted volume is already built, leaves streets and other public land out, and exports the shortlist to CSV.</p>
 
       <p>Every figure shows where it came from. Where something is inferred, such as commune rent levels, it's labelled as such; figures that couldn't be traced to a source were taken out. The data tab tests every public source live. Owner identity is left out on purpose. There's no AI here: it's a screening tool, and deciding what a parcel is worth stays with the analyst.</p>
+      <div class="build-note">
+        <div class="build-note-label">Build note</div>
+        <dl>
+          <div class="bn-row"><dt>Built</dt><dd>First version June 2026; rebuilt with Claude Code and Claude Opus 5.5 in November 2026.</dd></div>
+          <div class="bn-row"><dt>Rules</dt><dd>Every figure is traced to a canton layer or labelled as inferred. Owner identity is left out. Streets, other public land and the agricultural zone stay out of the rankings unless you add them.</dd></div>
+          <div class="bn-row"><dt>Checks</dt><dd>The data tab tests every public source live, each time you open it.</dd></div>
+          <div class="bn-row"><dt>Caught</dt><dd>The rebuild removed figures that couldn't be traced to a source: a commune price index, an opportunity score, office and logistics figures and a +50 bps value change.</dd></div>
+          <div class="bn-row"><dt>Limits</dt><dd>Commune yields assume a flat CHF 10,000/m² and are labelled illustrative; the year of the tax coefficients isn't recorded.</dd></div>
+          <div class="bn-row"><dt>Data</dt><dd>SITG, Geneva's cantonal geodata, queried live; official RDPPF extracts linked.</dd></div>
+        </dl>
+      </div>
     </div>
   </div>
 
@@ -301,6 +348,16 @@
       <p>Lineage draws a fictional Geneva family, the same one as in Vintage, as an engraved holding structure. Select any asset and its chain to the ultimate owners lights up, with each owner's effective share; select a person to see everything they have an interest in. Succession, a buy-out and a property sale can be run on top, separately or together.</p>
 
       <p>The checks matter more than the drawing here. Effective shares along every path must sum to 100%, value must be conserved at every node, and after any scenario the family's wealth must equal what it was plus the explicit flows. Those hold across every scenario combination, tested in code.</p>
+      <div class="build-note">
+        <div class="build-note-label">Build note</div>
+        <dl>
+          <div class="bn-row"><dt>Built</dt><dd>Claude Code with Claude Opus 5.5, November 2026.</dd></div>
+          <div class="bn-row"><dt>Rules</dt><dd>One fictional family, shared with Vintage. Effective shares along every path sum to 100%, value is conserved at every node, and after any scenario the family's wealth equals what it was plus the explicit flows.</dd></div>
+          <div class="bn-row"><dt>Checks</dt><dd>5,583 model checks and 33,306 view checks pass across all 24 scenario combinations. Last run 5 November 2026.</dd></div>
+          <div class="bn-row"><dt>Limits</dt><dd>The layout is placed by hand for this family, so a new entity fails a test until it is given a position. On a phone you pan to see the sides.</dd></div>
+          <div class="bn-row"><dt>Data</dt><dd>Illustrative structure built from Vintage's funds; real ECB exchange rates.</dd></div>
+        </dl>
+      </div>
     </div>
   </div>
 
@@ -315,6 +372,17 @@
       <p>Corridor draws every building in the register of at least 5,000 m² with an industrial unit, 8,814 of them, extruded in 3D over a paper map of the Netherlands. Heights come from the national lidar survey where it can measure the roof, and are marked as assumed where it can't. Drop a catchment anywhere and the panel gives the count, total footprint, median size, age profile and the share built since 2015; scrub the years and watch the box boom of the 2000s and 2010s rise.</p>
 
       <p>The hard part was deciding what not to count. The register's industrial use also covers farming, so 1,523 glasshouses are screened out using the national topographic map and the lidar roof height. Footprint is labelled footprint, not lettable area. There's no AI here: it's the register, drawn.</p>
+      <div class="build-note">
+        <div class="build-note-label">Build note</div>
+        <dl>
+          <div class="bn-row"><dt>Built</dt><dd>Claude Code with Claude Opus 5.5, November 2026.</dd></div>
+          <div class="bn-row"><dt>Rules</dt><dd>Netherlands only. Buildings of at least 5,000 m² with an industrial unit, glasshouses screened out. Footprint is labelled footprint, never lettable area, and heights are marked as assumed where the lidar can't measure the roof.</dd></div>
+          <div class="bn-row"><dt>Checks</dt><dd>21 data checks pass: every province present, footprint and height bounds, the post-2000 share, histogram sums for each catchment, no building lost by the map's pre-filter, and the cumulative counts by year. Last run 5 November 2026.</dd></div>
+          <div class="bn-row"><dt>Caught</dt><dd>The register's web service refused queries for a single building and stalled on buildings with more than 1,000 units; the snapshot now handles both and reports any refusal instead of retrying it.</dd></div>
+          <div class="bn-row"><dt>Limits</dt><dd>13% of heights are assumed rather than measured.</dd></div>
+          <div class="bn-row"><dt>Data</dt><dd>BAG building register and AHN4 lidar, snapshot of 3 November 2026.</dd></div>
+        </dl>
+      </div>
     </div>
   </div>
 
@@ -329,6 +397,16 @@
       <p>Vintage draws the programme of a fictional Geneva family like an orrery, the old clockwork model of the planets: one ring per vintage, one sector per strategy, each fund a planet sized to its NAV with a dashed ring for what is still to be called. Below it, the cumulative cash-flow tide shows the J-curve and a low, base and high forecast. Click a fund for its metrics, cash flows and look-through holdings.</p>
 
       <p>The funds are illustrative, but nothing on the screen is typed in. IRR is computed from dated cash flows, TVPI is distributions plus NAV over paid-in, and the NAV roll-forward has to hold every quarter. Exchange rates are the real ECB fixes. Those identities are tested in code, because a sharp reader will check whether the IRR fits the multiple.</p>
+      <div class="build-note">
+        <div class="build-note-label">Build note</div>
+        <dl>
+          <div class="bn-row"><dt>Built</dt><dd>Claude Code with Claude Opus 5.5, November 2026.</dd></div>
+          <div class="bn-row"><dt>Rules</dt><dd>The funds are illustrative, generated by a script with a fixed seed; nothing on screen is typed in. Exchange rates are real ECB fixes.</dd></div>
+          <div class="bn-row"><dt>Checks</dt><dd>20 model tests and 7 view tests pass: IRR against Excel's reference example, the NAV roll-forward every quarter, TVPI = DPI + RVPI, IRR consistent with the multiple, forecast calls within unfunded commitments, and the same seed giving byte-identical funds. Last run 5 November 2026.</dd></div>
+          <div class="bn-row"><dt>Limits</dt><dd>The next twelve months of calls are fixed at the September 2026 forecast, and the largest private-equity planets overlap slightly.</dd></div>
+          <div class="bn-row"><dt>Data</dt><dd>Illustrative funds; ECB reference rates.</dd></div>
+        </dl>
+      </div>
     </div>
   </div>
 
@@ -343,6 +421,18 @@
       <p>Signals collects that data for eight companies (NVIDIA, Apple, Tesla, Amazon, Delta, United, Valero and Marathon Petroleum), maps where it comes from, and turns it into a reading for the quarter in progress. Each reading is a walk-forward test: for every past quarter the model is fitted only on earlier quarters, given only the data that was public on that quarter's report day, and compared with a naive forecast, last quarter's growth. Each company page opens on the call: the figure expected for the quarter, which sources are running ahead of last quarter and which behind, and how well the method has done.</p>
 
       <p>The record is the point. The refining margin works for Valero and Marathon, Taiwanese suppliers for Apple and, on a shorter record, European registrations for Tesla. For NVIDIA no free signal beats its own guidance plus its usual beat, and for Delta nothing beats the naive forecast; the app says so rather than show a number it can't stand behind. One idea I tested, that TSMC's sales lead NVIDIA's by a quarter, wasn't borne out and stays out of the model. There's no AI in the readings: every number is arithmetic on public data, checked against its source.</p>
+      <div class="build-note">
+        <div class="build-note-label">Build note</div>
+        <dl>
+          <div class="bn-row"><dt>Built</dt><dd>Claude Code with Claude Opus 5.5, November 2026.</dd></div>
+          <div class="bn-row"><dt>Rules</dt><dd>Each past quarter is read with only the data public on its report day and judged against a naive forecast. The two composite specifications were fixed before testing, a headline needs a record that beats naive, and no paid consensus data is used.</dd></div>
+          <div class="bn-row"><dt>Checks</dt><dd>148 tests pass, including one that the walk-forward never sees the future. Figures were re-checked at source for MOPS, RDW, KBA, BTS, UN Comtrade and EIA. Last run 5 November 2026.</dd></div>
+          <div class="bn-row"><dt>Caught</dt><dd>Two hours of US grid data read 1.5 billion MW and added 2,565 TWh to one month; a rule now rejects such hours for every zone. Amazon's FY2012 10-K swapped two columns, which the engine first read as real figures; values contradicted by the other filings are now rejected and listed.</dd></div>
+          <div class="bn-row"><dt>Missed</dt><dd>The idea that TSMC's sales lead NVIDIA's by a quarter wasn't borne out and stays out of the model. Amazon's beat-or-miss calls were right 16 times in 19, fewer than the 18 you'd get by always saying "beat", and the sheet says so.</dd></div>
+          <div class="bn-row"><dt>Limits</dt><dd>Airport map weights overstate routes that were dropped, and German registrations before December 2018 aren't read.</dd></div>
+          <div class="bn-row"><dt>Data</dt><dd>24 public sources, snapshot of 3 November 2026, partly refreshed on 4 November.</dd></div>
+        </dl>
+      </div>
     </div>
   </div>
 
