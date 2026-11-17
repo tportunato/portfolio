@@ -47,16 +47,16 @@
       'Des données publiques gratuites qui bougent avant les résultats de huit sociétés (ventes des fournisseurs taïwanais, immatriculations, chaque vol intérieur américain, marges de raffinage)' + C + ' le trimestre attendu, ce qui le porte et ce qui le freine, et un historique face à une prévision naïve.',
     'On building these tools — a design note <span class="arr">→</span>': 'Comment ces outils sont faits — une note <span class="arr">→</span>',
     'Built with Claude, outside work': 'Réalisé avec Claude, en dehors du travail',
-    'Things I build with Claude outside work: an imaginary house, a piece of furniture and a small game. Each one runs in the browser.':
-      'Ce que je construis avec Claude en dehors du travail' + C + ' une maison imaginaire, un meuble et un petit jeu. Tout fonctionne dans le navigateur.',
+    'Things I build with Claude outside work: an imaginary house, a piece of furniture and a night-time street racer. Each one runs in the browser.':
+      'Ce que je construis avec Claude en dehors du travail' + C + ' une maison imaginaire, un meuble et un jeu de course nocturne. Tout fonctionne dans le navigateur.',
     '3D · Furniture': '3D · Mobilier',
     'Browser game': 'Jeu web',
     'A fictional stone farmhouse in Provence, modelled in 3D: x-ray every floor, pull the storeys apart and move the sun through the day.':
       'Un mas en pierre imaginaire en Provence, modélisé en 3D' + C + ' chaque étage aux rayons X, les niveaux écartés et le soleil qui tourne au fil de la journée.',
     'A fold-out home office in Swiss stone pine, rebuilt in 3D from six showroom photos.':
       'Un bureau dépliable en arolle, reconstitué en 3D à partir de six photos de showroom.',
-    'A three-minute hoverbike ride at the edge of the day: hand-inked look, procedural world and sound, under 60 KB.':
-      'Trois minutes en hoverbike à la tombée du jour' + C + ' rendu encré à la main, monde et son procéduraux, moins de 60' + NN + 'Ko.',
+    'An original night street racer in an open neon city: races, police chases and traffic, every model scripted in Blender, every sound synthesised in the browser.':
+      'Un jeu de course de nuit original dans une ville néon ouverte' + C + ' courses, poursuites avec la police et circulation, chaque modèle scripté dans Blender, chaque son synthétisé dans le navigateur.',
     'Get in touch<span class="dot">.</span>': 'Écrivez-moi<span class="dot">.</span>',
     'If you\'re working on something interesting in European private markets, I\'d like to hear about it.':
       'Si vous travaillez sur un projet intéressant dans les marchés privés européens, j’aimerais en entendre parler.',
